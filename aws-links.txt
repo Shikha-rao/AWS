@@ -1,0 +1,287 @@
+Chapter5
+
+1. Servless 101
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609880755229-S5_L1_SERVERLESS_101.pdf
+
+Technologies
+Lambda
+SQS
+SNS
+API Gateway
+Dynamo DB
+S3
+
+Servless website example -- Cloud Guru Website
+
+2. Lambda
+
+Lambda is servless compute
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609880847396-S5_L2_LAMBDA.pdf
+
+https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html
+
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
+
+https://aws.amazon.com/lambda/edge/
+
+Amazon Alexa and Echo are using Lambda functions
+
+3. API Gateway
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609880921530-S5_L3_API_GATEWAY.pdf
+
+https://docs.aws.amazon.com/apigateway/latest/api/API_Operations.html
+
+https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-stages.html
+
+4. Building Servless Website
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609881008086-S5_L4_BUILDING_A_SIMPLE_SERVERLESS_WEBSITE_DEMO%20%28Rebecca%20Gibbs%27s%20conflicted%20copy%202020-10-08%29.pdf
+
+https://github.com/ACloudGuru-Resources/course-aws-certified-developer-associate/tree/main/Serverless_Webite_Demo
+
+5. Version control with Lambda
+
+https://github.com/ACloudGuru-Resources/course-aws-certified-developer-associate/tree/main/Version_Control_With_Lambda
+
+6. Lambda Concurrent Executions Limit
+
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609881476736-S5_L6_LAMBDA_LIMITS.pdf
+
+7. Lambda and VPC Access
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609881600745-S5_L7_LAMBDA_%26_VPCs_edited.pdf
+
+8. Example servless architecture
+
+9. Step Functions
+
+
+https://7l8aid35pa.execute-api.us-east-1.amazonaws.com/prod
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609882015226-S5_L9_STEP_FUNCTIONS.pdf
+
+https://aws.amazon.com/step-functions/faqs/
+
+10. comparing steps Functions workflows
+
+https://docs.aws.amazon.com/step-functions/latest/dg/choosing-workflow-type.html
+
+11. Understanding ephemeral and persistent data storage patterns.
+
+Lambda is stateless
+
+https://aws.amazon.com/blogs/compute/choosing-between-aws-lambda-data-storage-options-in-web-apps/
+
+12. Lambda environment variables and parameters
+
+13. Handling Lambda Events lifecycle and errors
+
+Lambda Retries
+Dead letter queues
+Lambda Destinations
+
+14. Lambda deployment packaging options
+
+Lambda deployment package
+deployment packages greater than 50MB
+Lambda layers
+
+15. Lambda Performance Tuning Best Practices
+
+memory and cpu capacity
+the execution  environment
+optimizing static initialization
+
+16 Advanced API Gateway
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609882387213-S5_L12_ADVANCED_API_GATEWAY.pdf
+
+Open API - swagger
+legacy protocals - soap api
+
+17. Using API Gateway Mock Endpoints for Integration Testing and Resolving Integration Dependencies
+
+API Gateway Mock Endpoints
+
+18 Using API Gateway Stages for Testing Deployed Code
+
+API Gateway Stage
+Stage Variables
+
+19 - Creating Dynamic Lambda Deployments Using API Gateway Staging Variables
+
+20 API Response and Request Transformations
+
+API request transformations
+API response transformations
+parameter mapping
+
+21 API Gateway Caching and Throttling
+
+https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html
+https://docs.aws.amazon.com/apigateway/latest/api/API_Operations.html
+
+API Gateway Caching
+API Gateway Account Level Throttling
+
+22 Understanding X-Ray
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609882221674-S5_L10_X-RAY.pdf
+
+https://docs.aws.amazon.com/xray/latest/devguide/xray-services.html
+
+X-ray Integrations
+X-Ray Architecture
+
+23 X-Ray Configuration
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609882338464-S5_L11_X-RAY_CONFIGURATION_STEPS.pdf
+
+24 Serverless Summary - Part 1
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609882437887-S5_L13_SERVERLESS_SUMMARY.pdf
+
+25 Serverless Summary - Part 2
+
+26 Serverless Summary - Part 3
+
+
+
+chapter 6
+1. Introduction to DynamoDB
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609882756199-S6_L1_INTRODUCTION_TO_DYNAMO_DB.pdf
+
+https://aws.amazon.com/dynamodb/faqs/
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html
+
+2. Creating a DynamoDB Table - Demo
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609882953335-S6_L2_CREATING_A_DYNAMODB_TABLE_DEMO.pdf
+
+https://media.acloud.guru/aws-cda-2018/resource/2e335f1f-2bf4-49f9-0ad8-d0fdd04c5c9e_ffca869f-13a9-234f-f1c1-749ba0cad2ad/aws-cda-2018-21b919a4-6bc1-49e6-ab13-3cf92f9573e1.txt?Expires=1733393143&Signature=IiiGwvJkla/7kWCofPYwX88MWnrnVvi1ZbLWbNKDxG6Ma96oAUKvXCfNeleVP7bN8mD/epUHn0x1F2Z12iyhp/UtnmthD6D4oHQo3d5rwd9HG43lhv1MPc68MPAUCDjxx7BQ/bSzAhzOy7+HIdXZpVCfgp1rNSVhI+6yfOG8sURWTrC7lGHq8bzFt/I+hj1G8fO0ljT7vbFwX8OXdUVnM9v2kY5uVcQ/0lNlGe/x+NIgKOq4/NmbcBQxAIvhFwhcGhUMRjQXacru7A5QUt+9TvnDt7cgrBwerbtbRC+ARvEQvoZXo7IfOhlsKvN4/0FNgTj4Tw26X5R4p0GTr3SnTw==&Key-Pair-Id=APKAISLU6JPYU7SF6EUA
+
+3. DynamoDB Access Control
+
+4. Indexes Deepdive
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609892841776-S6_L3_INDEXES_DEEPDIVE.pdf
+
+5. Scan vs Query API Call - Demo
+
+https://github.com/ACloudGuru-Resources/course-aws-certified-developer-associate/blob/main/Scan_V_Query/commands.txt
+
+https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations.html
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html
+
+6. Using DynamoDB API Calls
+
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/index.html
+
+7. DynamoDB Provisioned Throughput
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609893318195-S6_L5_DYNAMODB_PROVISIONED_THROUGHPUT.pdf
+
+8. DynamoDB On-Demand Capacity
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609893427115-S6_L6_DYNAMODB_PRICING_OPTIONS.pdf
+
+9. DynamoDB Accelerator (DAX)
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609893650942-S6_L7_DYNAMODB_ACCELERATOR.pdf
+
+10.DynamoDB TTL - Demo
+
+TTL - Time to Live
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1615224240772-DynamoDB%20Commands.txt
+
+11. DynamoDB Streams
+
+12 . Provisioned Throughput Exceeded and Exponential Backoff
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894133531-S6_L12_DYNAMODB_EXPONENTIAL_BACK_OFF.pdf
+
+13. DynamoDB Summary
+
+
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894244898-S6_L13_DYNAMODB_SUMMARY.pdf
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1688475895258-M1031-AWSCertifiedDeveloper-Associate_CompleteStudyGuide.pdf
+
+
+chapter 7
+
+1. KMS 101
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894308645-S7_L1_KMS_101.pdf
+
+2. Creating A CMK - Demo
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894433091-S7_L2_CREATING_A_CMK.pdf
+
+3. CMK Summary
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894529091-S7_L3_CMK_SUMMARY.pdf
+
+4. Understanding KMS API Calls - Demo
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894665340-S7_L4_Understanding_KMS_API_Calls.pdf
+
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/kms/index.html#cli-aws-kms
+
+5. Exploring Envelope Encryption
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894752683-S7_L5_Exploring_Envelope-Encryption.pdf
+
+6. Enabling and Disabling KMS Key Rotation - Demo
+
+https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html
+
+7. Certificate Management in AWS
+
+8. KMS Summary 
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894833836-S7_L6_KMS_SUMMARY.pdf
+
+
+chapter 8
+
+1. SQS
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609894975843-S8_L1_SQS.pdf
+
+2. Understanding SQS Queue Types
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609895109075-S8_L2_UNDERSTANDING_SQS_QUEUE_TYPES.pdf
+
+3. SQS Settings
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609895198911-S8_L3_SQS_SETTINGS.pdf
+
+4. SQS Delay Queues & Large Messages
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609895281111-S8_L4_SQS%20Delay%20Queues_SETTINGS.pdf
+
+5.Simple Notification Service
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609895351789-S8_L5_SNS%20.pdf
+
+6. SES vs SNS
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609895466152-S8_L6_SNS_V_SES.pdf
+
+7. Kinesis 101
+
+https://acloudguru-content-attachment-production.s3-accelerate.amazonaws.com/1609895564960-S8_L7_KINESIS_101.pdf
+
+8. 
+
+
