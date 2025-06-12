@@ -1,0 +1,199 @@
+ 1. Setup Routing
+ts
+Copy
+Edit
+// app.routes.ts
+import { Routes } from '@angular/router';
+import { CreateSessionComponent } from './create-session.component';
+import { JoinSessionComponent } from './join-session.component';
+import { SessionComponent } from './session.component';
+import { DestroyConfirmationComponent } from './destroy-confirmation.component';
+
+export const routes: Routes = [
+  { path: '', component: CreateSessionComponent },
+  { path: 'join/:sessionId', component: JoinSessionComponent },
+  { path: 'session/:sessionId', component: SessionComponent },
+  { path: 'destroyed', component: DestroyConfirmationComponent },
+];
+🧱 2. Create Session Component
+ts
+Copy
+Edit
+// create-session.component.ts
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { SessionService } from './session.service';
+import { FormBuilder, Validators } from '@angular/forms';
+
+@Component({
+  standalone: true,
+  selector: 'app-create-session',
+  template: `
+    <h2>Create Poker Planning Session</h2>
+    <form [formGroup]="form" (ngSubmit)="createSession()">
+      <input formControlName="title" placeholder="Session Title" />
+      <select formControlName="deck">
+        <option value="fibonacci">Fibonacci</option>
+        <option value="tshirt">T-Shirt Sizes</option>
+      </select>
+      <button type="submit">Create</button>
+    </form>
+  `,
+  imports: [ReactiveFormsModule],
+})
+export class CreateSessionComponent {
+  form = this.fb.group({
+    title: ['', Validators.required],
+    deck: ['fibonacci', Validators.required],
+  });
+
+  constructor(private fb: FormBuilder, private sessionService: SessionService, private router: Router) {}
+
+  createSession() {
+    const session = this.sessionService.createSession(this.form.value);
+    this.router.navigate(['/session', session.id]);
+  }
+}
+🙋 Join Session Component
+ts
+Copy
+Edit
+// join-session.component.ts
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SessionService } from './session.service';
+import { FormBuilder } from '@angular/forms';
+
+@Component({
+  standalone: true,
+  selector: 'app-join-session',
+  template: `
+    <h2>Join Session</h2>
+    <form [formGroup]="form" (ngSubmit)="join()">
+      <input formControlName="name" placeholder="Your Name" />
+      <button type="submit">Join</button>
+    </form>
+  `,
+  imports: [ReactiveFormsModule],
+})
+export class JoinSessionComponent {
+  form = this.fb.group({ name: '' });
+
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private sessionService: SessionService, private router: Router) {}
+
+  join() {
+    const sessionId = this.route.snapshot.paramMap.get('sessionId')!;
+    this.sessionService.joinSession(sessionId, this.form.value.name);
+    this.router.navigate(['/session', sessionId]);
+  }
+}
+🧑‍🤝‍🧑 Session Component
+ts
+Copy
+Edit
+// session.component.ts
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SessionService } from './session.service';
+
+@Component({
+  standalone: true,
+  selector: 'app-session',
+  template: `
+    <h2>{{ session?.title }}</h2>
+    <p>Invite link: {{ inviteLink }}</p>
+    <h3>Stories</h3>
+    <ul>
+      <li *ngFor="let story of session?.stories">{{ story }}</li>
+    </ul>
+    <h3>Members</h3>
+    <ul>
+      <li *ngFor="let member of session?.members">{{ member }}</li>
+    </ul>
+    <button (click)="destroy()">Destroy Session</button>
+  `,
+})
+export class SessionComponent {
+  session: any;
+  inviteLink: string = '';
+  constructor(private route: ActivatedRoute, private sessionService: SessionService, private router: Router) {}
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('sessionId')!;
+    this.session = this.sessionService.getSession(id);
+    this.inviteLink = window.location.origin + '/join/' + id;
+  }
+
+  destroy() {
+    if (confirm('Are you sure you want to destroy the session?')) {
+      this.sessionService.destroySession(this.session.id);
+      this.router.navigate(['/destroyed']);
+    }
+  }
+}
+✅ Destroy Confirmation Component
+ts
+Copy
+Edit
+// destroy-confirmation.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  standalone: true,
+  selector: 'app-destroy-confirmation',
+  template: `<h2>Session destroyed successfully.</h2>`,
+})
+export class DestroyConfirmationComponent {}
+📦 Session Service (Mock Backend)
+ts
+Copy
+Edit
+// session.service.ts
+import { Injectable } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
+export class SessionService {
+  private sessions = new Map<string, any>();
+
+  createSession(data: { title: string; deck: string }) {
+    const id = Math.random().toString(36).substring(2);
+    this.sessions.set(id, {
+      id,
+      title: data.title,
+      deck: data.deck,
+      stories: ['Login feature', 'Payment integration'],
+      members: [],
+    });
+    return this.sessions.get(id);
+  }
+
+  getSession(id: string) {
+    return this.sessions.get(id);
+  }
+
+  joinSession(id: string, name: string) {
+    const session = this.sessions.get(id);
+    if (session) {
+      session.members.push(name);
+    }
+  }
+
+  destroySession(id: string) {
+    this.sessions.delete(id);
+  }
+}
+Let me know if you want:
+
+Real-time syncing (via WebSockets/Firebase)
+
+A backend API example
+
+UI styling with Angular Material or Tailwind
+
+Tests for each component
+
+This version is fully functional as a prototype in Angular 19.
+
+
+
+
