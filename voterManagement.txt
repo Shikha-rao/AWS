@@ -1,0 +1,166 @@
+ Component: vote-manager.component.ts
+ts
+Copy
+Edit
+import { Component } from '@angular/core';
+
+type Status = 'PENDING' | 'VOTING' | 'VOTED';
+
+interface UserStory {
+  id: string;
+  title: string;
+  status: Status;
+  votes: { user: string; value?: string }[];
+  revealed: boolean;
+}
+
+@Component({
+  selector: 'app-vote-manager',
+  standalone: true,
+  templateUrl: './vote-manager.component.html',
+  styleUrls: ['./vote-manager.component.css'],
+})
+export class VoteManagerComponent {
+  user = 'Alice'; // Mock current user
+  voteOptions = ['1', '2', '3', '5', '8', '13', '?'];
+  stories: UserStory[] = [
+    { id: '1', title: 'Login Page', status: 'PENDING', votes: [], revealed: false },
+    { id: '2', title: 'Payment Gateway', status: 'VOTED', votes: [], revealed: true },
+  ];
+
+  startVoting(story: UserStory) {
+    story.status = 'VOTING';
+    story.votes = [];
+    story.revealed = false;
+  }
+
+  vote(story: UserStory, value: string) {
+    if (story.status !== 'VOTING') return;
+    if (story.votes.find((v) => v.user === this.user)) return;
+
+    story.votes.push({ user: this.user, value });
+  }
+
+  stopVoting(story: UserStory) {
+    story.status = 'VOTED';
+    story.revealed = true;
+  }
+
+  hasVoted(story: UserStory) {
+    return story.votes.some((v) => v.user === this.user);
+  }
+
+  getVoteSummary(story: UserStory): Record<string, number> {
+    const summary: Record<string, number> = {};
+    for (const vote of story.votes) {
+      if (vote.value) summary[vote.value] = (summary[vote.value] || 0) + 1;
+    }
+    return summary;
+  }
+}
+📄 HTML Template: vote-manager.component.html
+html
+Copy
+Edit
+<div class="story" *ngFor="let story of stories">
+  <h3>{{ story.title }} <span class="status">{{ story.status }}</span></h3>
+
+  <div class="actions">
+    <button *ngIf="story.status === 'PENDING'" (click)="startVoting(story)">Start</button>
+    <button *ngIf="story.status === 'VOTING'" (click)="stopVoting(story)">Stop</button>
+  </div>
+
+  <div class="voting-area" *ngIf="story.status === 'VOTING'">
+    <div class="vote-options">
+      <button
+        *ngFor="let option of voteOptions"
+        [disabled]="hasVoted(story)"
+        (click)="vote(story, option)"
+        [class.voted]="hasVoted(story)"
+      >
+        {{ option }}
+      </button>
+    </div>
+
+    <div class="voters">
+      <p *ngFor="let vote of story.votes">
+        {{ vote.user }} has voted.
+      </p>
+      <p>{{ story.votes.length }} vote(s) submitted</p>
+    </div>
+  </div>
+
+  <div class="results" *ngIf="story.status === 'VOTED' && story.revealed">
+    <h4>Votes Revealed</h4>
+    <ul>
+      <li *ngFor="let vote of story.votes">{{ vote.user }}: {{ vote.value }}</li>
+    </ul>
+    <h5>Summary</h5>
+    <ul>
+      <li *ngFor="let key of getVoteSummary(story) | keyvalue">{{ key.key }}: {{ key.value }}</li>
+    </ul>
+  </div>
+</div>
+🎨 CSS Styling: vote-manager.component.css
+css
+Copy
+Edit
+.story {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.status {
+  font-size: 0.8rem;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
+
+.status::after {
+  content: attr(data-status);
+}
+
+.status.PENDING {
+  background-color: orange;
+}
+.status.VOTING {
+  background-color: dodgerblue;
+}
+.status.VOTED {
+  background-color: green;
+}
+
+.actions {
+  margin: 1rem 0;
+}
+
+.vote-options button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.vote-options button:hover {
+  background-color: #ccc;
+}
+
+.vote-options button.voted {
+  background-color: limegreen;
+  color: white;
+}
+
+.voters, .results {
+  margin-top: 1rem;
+}
+
+.results ul {
+  padding-left: 1rem;
+}
