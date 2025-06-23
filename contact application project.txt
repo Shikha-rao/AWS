@@ -1,0 +1,234 @@
+Here’s a more complete implementation of an Angular 19 Contact Phone Book SPA with register/login, per‑user contact storage including name, phone, picture, and a call link. This example uses a Node.js/Express + MongoDB backend and JWT, but you can swap in Firebase if preferred.
+
+
+Project Setup
+Backend
+Create backend/ folder
+
+Install dependencies:
+
+npm init -y
+npm install express mongoose cors bcryptjs jsonwebtoken multer
+Create server.js, models/, and routes/ as outlined below.
+
+Frontend
+Create Angular 19 project:
+
+ng new frontend --routing --style=css
+cd frontend
+npm install @angular/material @auth0/angular-jwt
+Generate modules/components/services:
+
+ng g m auth --routing
+ng g m contacts --routing
+ng g s services/auth
+ng g s services/contacts
+ng g c auth/register auth/login contacts/contact-list contacts/contact-form
+
+🧩 Backend Code
+Create backend/models/User.js:
+
+
+const mongoose = require('mongoose');
+const UserSchema = new mongoose.Schema({
+  email: { type: String, unique: true },
+  password: String
+});
+module.exports = mongoose.model('User', UserSchema);
+Create backend/models/Contact.js:
+
+
+const mongoose = require('mongoose');
+const ContactSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  name: String, phone: String, image: String
+});
+module.exports = mongoose.model('Contact', ContactSchema);
+Create backend/routes/auth.js:
+
+
+const { Router } = require('express');
+const bcrypt = require('bcryptjs'), jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const router = Router();
+
+const JWT_SECRET = 'your_jwt_secret';
+router.post('/register', async (req, res) => {
+  const { email, password } = req.body;
+  const hashed = await bcrypt.hash(password, 10);
+  await User.create({ email, password: hashed });
+  res.sendStatus(201);
+});
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if(!user || !await bcrypt.compare(password, user.password))
+    return res.status(401).json({ message: 'Invalid credentials' });
+  const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: '7d' });
+  res.json({ token });
+});
+module.exports = router;
+Create backend/routes/contacts.js:
+
+
+const { Router } = require('express');
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const Contact = require('../models/Contact');
+const upload = multer({ dest: 'uploads/' });
+const JWT_SECRET = 'your_jwt_secret';
+
+const router = Router();
+const auth = (req, res, next) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    req.userId = payload.sub;
+    next();
+  } catch {
+    res.sendStatus(401);
+  }
+};
+
+router.get('/', auth, async (req, res) => {
+  const contacts = await Contact.find({ user: req.userId });
+  res.json(contacts);
+});
+
+router.post('/', auth, upload.single('image'), async (req, res) => {
+  const { name, phone } = req.body;
+  const image = req.file ? '/uploads/' + req.file.filename : '';
+  const contact = await Contact.create({ user: req.userId, name, phone, image });
+  res.status(201).json(contact);
+});
+
+router.put('/:id', auth, upload.single('image'), async (req, res) => {
+  const { name, phone } = req.body;
+  const updated = { name, phone };
+  if (req.file) updated.image = '/uploads/' + req.file.filename;
+  const contact = await Contact.findOneAndUpdate({ _id: req.params.id, user: req.userId }, updated, { new: true });
+  res.json(contact);
+});
+
+router.delete('/:id', auth, async (req, res) => {
+  await Contact.findOneAndDelete({ _id: req.params.id, user: req.userId });
+  res.sendStatus(204);
+});
+
+module.exports = router;
+Add endpoints to server.js, connect to MongoDB, and serve uploads statically.
+
+🧠 Frontend Code
+Set up AuthService (auth.service.ts):
+
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private API = 'http://localhost:3000/api';
+  login(data) {
+    return this.http.post<{ token }>(`${this.API}/auth/login`, data);
+  }
+  register(data) {
+    return this.http.post(`${this.API}/auth/register`, data);
+  }
+}
+ContactService (contact.service.ts):
+
+@Injectable({ providedIn: 'root' })
+export class ContactService {
+  private API = 'http://localhost:3000/api/contacts';
+  getAll() { return this.http.get<Contact[]>(this.API); }
+  create(form: FormData) { return this.http.post<Contact>(this.API, form); }
+  update(id: string, form: FormData) { return this.http.put<Contact>(`${this.API}/${id}`, form); }
+  delete(id: string) { return this.http.delete(`${this.API}/${id}`); }
+}
+Register JWT interceptor in app.module.ts.
+
+🛠️ UI Components
+RegisterComponent:
+
+
+<form (ngSubmit)="register()">
+  <input formControlName="email" placeholder="Email">
+  <input formControlName="password" type="password">
+  <button type="submit">Register</button>
+</form>
+LoginComponent:
+
+
+<form (ngSubmit)="login()">
+  <input formControlName="email">
+  <input formControlName="password" type="password">
+  <button type="submit">Login</button>
+</form>
+ContactListComponent:
+
+
+<div *ngFor="let c of contacts">
+  <img [src]="c.image" width="50"><br>
+  {{ c.name }} — {{ c.phone }}
+  <a [href]="'tel:' + c.phone">📞 Call</a>
+  <button (click)="edit(c)">Edit</button>
+  <button (click)="delete(c._id)">Delete</button>
+</div>
+<app-contact-form (saved)="reload()"></app-contact-form>
+ContactFormComponent:
+
+
+<form (ngSubmit)="onSubmit()">
+  <input formControlName="name" placeholder="Name">
+  <input formControlName="phone">
+  <input type="file" (change)="onFile($event)">
+  <button type="submit">{{contact? 'Update':'Add'}}</button>
+</form>
+Submit using FormData() with image file.
+
+🚀 Running It
+Backend:
+
+
+cd backend
+node server.js
+Frontend:
+
+
+cd frontend
+ng serve
+You now have:
+
+User registration & login
+
+JWT-based secured REST API
+
+Add/edit/delete contacts, upload profile pics
+
+Call functionality via <a href="tel:...">
+
+✅ Summary
+This structure supports:
+
+Authentication (register/login)
+
+Per-user contacts
+
+Profile pics via file upload
+
+Call links (tel: URI)
+
+Clean Angular 19 + Angular Material scaffold
+
+From here, you can enhance with features like:
+
+Form validation
+
+Image cropping
+
+Pagination
+
+Contact search/filter
+
+Better styling
+
+Would you like help with Firebase-based version or automatic server deployment script?
+
+
