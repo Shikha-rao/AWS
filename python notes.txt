@@ -1,0 +1,1558 @@
+https://capgemini.udemy.com/organization/home/
+
+https://capgemini.udemy.com/course/python-for-absolute-beginners-u/learn/lecture/16715424#overview
+
+//example.py
+
+print("Hello Word")
+
+python example.py
+
+
+--Variables
+
+A variable is just a named storage location in a computers memory for holding piece of information.
+
+ex_var = 5
+
+whenever we create a variable we need to assign value
+we can reassign value to the variable
+we can use any uppercase or lowercase to name a variable
+variable cannot have number , spaces , special characters
+we can follow camelCase or snake_Case_variable
+
+-- Basic Data Types
+
+floating point numbers  // float_1 = 1.2345
+Integer  //  int_1 =7  int_2 = -52
+Booleans // bool_1 = True 
+
+-- Comments and Math operators
+
+comment is made of special code that is ignored when a program containing them is run.
+they can be used to make helpful notes in programming
+
+# this is comment
+
+ instructions given to computer to perform specific consist of values and math operators. They are called expression
+
+addition = 4+5  #9
+subtraction = 5-2  #3
+division = 7/2 #3.5
+multiplication = 3*8  # 24
+exponentiation = 4 ** 4   # 256  ( 4 is multiplied by 4 time)
+floor_division = 16 // 5   # 3  (it divide 16 by 5 and discard decimal )
+modulo = 7 % 3  #1  (it get the reminder)
+
+Assignment operators
+
+operators which are used for reassignment
+add_assign =5
+add_assign +=7  (12) 5+7
+ it allows to write less code
+
+sub =10
+sub -=5 #5
+
+mult = 10
+mult *= 5   #50
+
+div = 10
+div /=5  #2.0
+
+exp = 10
+exp **=2  #100
+
+floor = 10
+floor //= #1
+
+mod=10
+mod %=7 # 3
+
+operator precedence
+1. ()
+2. **
+3. %,/,//, *
+4. + , -
+
+(9-7) * 2**3 + 10 % 6 // -1 * 2-1
+2 * 2**3 + 10 % 6 // -1 * 2-1
+2 * 8 + 10 % 6 // -1 * 2-1
+16 + -8-1
+7
+
+--- print()
+
+print can be used whenever you want to display some output in the program
+
+example_1 = True
+print(example_1)
+
+print(2019)
+print((4+5)*3)
+
+----Floats
+print(1.23 + 2.80)  /// 4.02999999999999999999
+
+why do expressions that involve floats produces inaccurate result?
+python is built on top of c language . Problem with c language is that it approximates floats using fixed number of binary digits and some numbers such as the sum of 1.23 and 2.80 cannot be represented with exactness by the limited number of binary digits used to represent a float.
+
+how to get around float approximation errors?
+1. avoid float instead use integers
+2. round() use this function when want only certain digit after decimal
+ex = 1.23 + 2.80
+print(round(ex,2))
+// 4.03
+
+---- Strings
+
+A string is a sequence of characters . Those characters can be any combination of numbers ,spaces , uppercase letters , lowercase letters , underscores or symbols.
+such as a period or exclamation point.
+
+strex_1 = 'This is a string.'
+strex_2 = "This is also a string."
+strex3 = ""
+
+accessing string using index number 
+ex_8 = "orange" 
+print(ex_8[2]) // a
+print("apple"[4]) //e
+
+//// string slicing 
+
+slicing allows to slice string and assign them to variables or print them
+while slice of string is just a string which was part of another string
+
+ex_10 = "apricots"
+
+print(ex_10[:3]) // apr
+print(ex_10[2:5]) // ric
+print(ex_10[4:]) // cots
+
+//concatenation
+
+strings can be added together using concatenation
+
+print("pecan" + " " + "pie")
+
+contactenated = "R2" + "-" + "D2"
+print(contactenated) // R2-D2
+print(contactenated[3]) // D
+print(contactenated[1:4]) // 2-D
+
+slicing does not  change the original string
+
+unchanged = "forrest gump"
+sliced = unchange[6:]
+print(sliced) // t gump
+print(unchanged)  // forrest gump
+print(unchanged[10])  // m
+print(unchanged)  // forrest gump
+
+-- type() and str()
+
+type() function allows to check data type of a piece of data
+
+ex_1 = False
+ex_2 = 29
+ex_3 = 4.1352
+
+print(type(ex_1))  // <class 'bool'>
+print(type(ex_2))  // <class 'int'>
+print(type(ex_3))  // <class 'float'>
+
+str() function converts whatever is put between its parentheses into string
+
+ex_4 = str(True)
+ex5 = str(5)
+ex_6 = str(3.21)
+
+print(type(ex_4)) // <class 'str'>
+print(type(ex_5)) // <class 'str'>
+print(type(ex_6)) // <class 'str'>
+
+-------- escape sequences
+
+escape sequence is special characters which you can use in string which enable you to do things such as insert quotes within them, and make different parts of string appear on different lines in the output.
+
+/t  --  horizontal space
+print("This\tis\ta\tlot\of\tspace.")  // This    is   a   lot    of   space.
+
+\n --- new line character
+print("line one\nline two")
+
+line one
+line two
+
+\' and \"  --- to add quotes
+print('"When I said \'immediately,\' I meant today!" said King Saul.')
+print("\"Do or do not. There is no try.\"")
+
+"When I said 'immediately,' I meant today!" said King Saul.
+"Do or do not. There is no try."
+
+
+\\ --- adds backslash in a string
+print("All escape sequences contain a \\.")
+All escape sequences contain a \.
+
+---------- input
+
+allow to get and use input from the user
+name  = input("Please enter your name.")
+print("Your name is " + name +".")
+print(type(name))
+
+Please enter your name.Shikha
+Your name is Shikha.
+<class 'str'>
+
+no matter what data we enter in input it returns string value
+
+number  = input("What is your favourite number?")
+print("Your favourite number is " + number +".")
+print(type(number))
+
+What is your favourite number?4
+Your favourite number is 4.
+<class 'str'>
+
+----int() and float()
+
+similar to str() function int() and float allows you to change string to number.
+
+int() -- converts strings to integer
+
+user_int = int(input("Please enter an integer."))
+print(user_int)
+print(type(user_int))
+
+//output
+Please enter an integer.2
+2
+<class 'int'>
+
+float() - converts string to float
+
+user_float = float(input("Please enter an float."))
+print(user_float)
+print(type(user_float))
+
+//output
+Please enter an integer.1.59
+1.59
+<class 'float'>
+
+------functions
+
+function allow users to reuse code whenever needed
+
+def function_name():
+    print(2+2)
+
+function_name()  //4
+
+
+def function_name(parameter):
+    print(parameter+2)
+
+function_name(8)  // 10
+
+///// multiple parameters
+
+first_str = "The number"
+
+
+def function_name(p1,p2,p3):
+    print(p1 + str(p2) +p3)
+
+function_name(first_str,5," is an integer.")  // The number 5 is an integer.
+
+/// default parameters
+
+def default_example(num1=7, num2=8):
+    print(num1*num2)
+
+
+default_example()  ///56
+
+default_example(2) // 16
+
+default_example(4,6)  // 24
+
+// return
+
+def default_example(num1=7, num2=8):
+    return num1*num2
+
+
+print(default_examp() + 44) //100
+
+------ modules
+
+modules containe set of functions that are useful for many different things
+to use the functions you must import them.
+There different types of imports - generic import , function import and universal imports.
+
+//Generic import
+
+import random
+
+
+print(random.randint(1,10))  // 4
+
+// function import
+
+from random import randint
+
+print(randint(10,20)) // 18
+
+// universal import
+
+from random import *
+
+print(random())  // 0.134
+
+----- Variable scope
+
+global scope - variables created outside functions have global scope
+local scope - variables create inside functions have local scope
+
+example = "hello world"  #global
+
+
+def loc_ex():
+    example =  "this is string"  #local
+    print(example)
+
+
+print(example)
+print(loc_ex)
+
+
+1. Local variables cannot be used by code in the global scope.
+2. Global variables can be accessed by code in a local scope.
+3. The local scope of one function can't use variables from another functions's local scope.
+4. You can use the same name for different variables as long as they are in different scopes.
+
+Global statements
+
+want to assign new value to a variable from within a function , you can do that using global statement
+
+def loc_ex():
+    global fruit
+    fruit = "pear"
+    print(fruit)
+
+
+fruit = "apple"
+loc_ex()
+print(fruit)
+
+//pear
+// pear
+
+---- Flow Control
+
+Boolean value , comparison operators , Boolean operators
+
+// comparison operators
+
+>
+<
+>=
+<=
+!=
+==
+
+print(4>2)  // True
+print(1>3) // False
+
+print(9>=9)  // True
+print(1<=2) // True
+
+print(10!=100)  // True
+print(10!=10) // False
+
+print(10 ==100)  // False
+print(10==10) // True
+
+comparatives are case sensitive
+print("Hello" == "hello") // False
+
+Floats and integers are equivalent
+print(4.0 == 4) // True
+print(4.0 >= 4) // True
+print(4.0 <= 4) // True
+
+/// boolean operators
+
+and
+or
+not
+
+------ If statements
+
+if True:
+    "Do the stuff here"
+
+
+veg = input("Type the name of a vegetable.")
+
+if veg == "corn":
+    print("The vegetable is corn.")
+
+
+///
+Type the name of a vegetable.corn
+The vegetable is corn.
+
+----- Else statements
+
+if False:
+    "do the stuff here"
+else:
+    "do this instead"
+
+
+veg = input("Type the name of a vegetable.")
+
+if veg == "corn":
+    print("The vegetable is corn.")
+else:
+    print("The vegtable is not corn.")
+
+////////
+
+Type the name of a vegetable.tomato
+The vegtable is not corn.
+
+----- Nested If and else statement
+
+gpa = float(input("what was the applicant's grade point average?"))
+inst_app = input("Is the student going to be educated at an approved instituion?")
+
+if gpa >= 3.7:
+    if inst_app == "yes":
+        print("The applicant qualifies for a low APR student loan.")
+    else:
+        print("The applicant does not qualify since they have not been accepted into an approved institution.")
+else:
+    print("The applicant did not have high enough grades to qualify.")
+
+// outputs
+
+what was the applicant's grade point average?3.4
+Is the student going to be educated at an approved instituion?yes
+The applicant did not have high enough grades to qualify.
+
+what was the applicant's grade point average?3.8
+Is the student going to be educated at an approved instituion?no
+The applicant does not qualify since they have not been accepted into an approved institution.
+
+what was the applicant's grade point average?4.0
+Is the student going to be educated at an approved instituion?yes
+The applicant qualifies for a low APR student loan.
+
+------- elif statements
+
+user_num =  int(input("Please enter an integer."))
+
+if user_num < 0:
+    print("The number you entered is less than 0.")
+elif user_num == 0:
+    print("The number you entered is 0.")
+elif 0 < user_num <= 100:
+    print("The number you entered can be 1, 100, or anything in between.")
+else:
+    print("The number you entered is greater than 100.")
+
+
+////////
+
+Please enter an integer.-5
+The number you entered is less than 0.
+
+Please enter an integer.0
+The number you entered is 0.
+
+Please enter an integer.1
+The number you entered can be 1, 100, or anything in between.
+
+Please enter an integer.1000
+The number you entered is greater than 100.
+
+--------- truthy and falsey values for strings
+
+For string anything other than an empty string is truthy.
+empty string is falsey
+
+strings_example = input("Enter any string other than an empty one.")
+
+if strings_example:
+    print("Thank you for entering something.")
+else:
+    print("You did not enter a string.")
+
+///
+
+Enter any string other than an empty one.this is a string
+Thank you for entering something.
+
+Enter any string other than an empty one.
+You did not enter a string.
+
+
+For best practice we can use below code
+
+strings_example = input("Enter any string other than an empty one.")
+
+if strings_example != "":
+    print("Thank you for entering something.")
+else:
+    print("You did not enter a string.")
+
+/// bool()
+
+print(bool(0)) //False
+print((bool(400)) // True
+
+print(bool(0.0)) //False
+print((bool(3.14159)) // True
+
+
+print(bool("")) //False
+print((bool("hello world")) // True
+
+--------- While Loops
+
+counter = 0
+
+while counter < 3:
+    print("something")
+    counter += 1
+
+//
+something
+something
+something
+
+avoiding infinite loops 
+
+---- For Loops
+
+for performing fixed number of loops we can use for loop
+
+word = "house"
+
+for letter in word:
+    print(letter)
+
+// output
+
+h
+o
+u
+s
+e
+
+---- range()
+
+range is function which represents sequence of numbers and is usually used for iterating over with a for loop. 
+It can take three arguments, start,stop and step and can be used one two or all three at the same time
+
+one_input = range(5)
+
+for num in one_input:
+    print(num)
+
+// output
+
+0
+1
+2
+3
+4
+
+two_inputs = range(5,10)
+
+for num in two_inputs:
+    print(num)
+
+5
+6
+7
+8
+9
+
+
+three_inputs = range(1,20,3)
+
+for num in three_inputs:
+    print(num)
+///
+
+1
+4
+7
+10
+13
+16
+19
+
+-----Strings method 1
+
+.upper() and .lower()
+
+allows string to be uppercase
+
+all_low = "there are no capitals here."
+print(all_low.upper())
+print(all_low)
+
+all_up = "THIS IS SHOUTING TEXT!"
+print(all_up.lower())
+
+//output
+
+THERE ARE NO CAPITALS HERE.
+there are no capitals here.
+this is shouting text!
+
+
+.isupper() and .islower()
+
+isupper returns Boolean value. It returns true only when values are all uppercase.
+
+print("Mixed Case".isupper())  // False
+print("ALL CAPS!".isupper())   // True
+
+islower also returns boolen value. It returns true only when values are all lowercase.
+
+print("AAAHHH!".islower())  //False
+print("$100 is a lot to make in an hour.".islower())  //True
+
+strings method only return true for string values , if empty or special characters values are there then false value is returned
+
+// other string methods
+
+.isalpha()  -- only letters
+.isalnum() -- only numbers and letters
+.isdecimal() -- only numbers
+.isspace() -- only spaces
+.istitle() -- only titlecase
+
+print("Batman".isalpha()) // True
+print("Batman123".isalpha())  // False
+print("Batman123".isalnum())  // True
+print("123".isalnum())  // True
+print("123".isdecimal())  // True
+print("3.14".isdecimal())  // False
+print(" ".isspace())  // True
+print("                            ".isspace())  // True
+print("The Empire Strikes Back. ".istitle())  // True
+
+print("the great gatsby".title())  // The Great Gatsby
+
+.startswith() and .endswith()
+
+print("this is a string".startswith("this"))  // true
+print("this is a string".startswith("t"))  // true
+print("this is a string".startswith("T"))  // False
+
+print("To infinity and beyond!".endswith("beyond!"))  // true
+print("To infinity and beyond!".endswith("beyond"))  // False
+
+.join()  -- combines multiple strings
+
+print("".join(["one","two","three"]))   // onetwothree
+print(" ".join(["one","two","three"]))   // one two three
+print(",".join(["one","two","three"]))  // one,two,three
+
+.split() -- split the strings and returns
+
+print("Eggs, Milk, Waffles, Bacon".split())
+// ['Eggs,','Milk,','Waffles,','Bacon']
+
+print("Eggs, Milk, Waffles, Bacon".split(","))
+// ['Eggs','Milk','Waffles','Bacon']
+
+
+--- Strings method2
+
+.rjust() and .ljust()
+returns the strings for right justified and left justified
+
+print("hellow world".rjust(15))  //     hello world   (space got added to the left)
+print("hellow world".ljust(15) + "four spaces later.")
+//hello world    four spaces later.
+
+print("hellow world".rjust(15,"-")) //  ----hello world
+print("hellow world".ljust(15,"*"))  // hello world****
+
+.center() -- add spaces on both side
+
+print("hellow world".center(15)) //   hello world  
+print("hellow world".center(15,":")) //  ::hello world::
+
+.strip() , .rstrip(), and .lstrip()
+If you want to remove spaces
+strip - remove characters from both side
+rstrip - removes from right side
+lstrip - removes from left side
+
+print("I had an exciting trip!!!11111")
+print("I had an exciting trip!!!11111".strip("1"))
+print("I had an exciting trip!!!11111".rstrip("1"))
+print("I had an exciting trip!!!11111".lstrip("1"))
+
+///
+I had an exciting trip!!!11111
+I had an exciting trip!!!
+I had an exciting trip!!!
+I had an exciting trip!!!11111
+
+print("juice, bread, cheese, beef, bread".rstrip(", bread"))
+// juice, bread, cheese, beef
+
+print("juice, bread, cheese, beef, bread".rstrip(", ed arb"))
+// juice, bread, cheese, beef
+
+print("blueblueyellowblue".strip("eulb"))  // yellow
+
+.replace() -- replace strings with value
+
+print("Good Morning.".replcase("morning","afternoon"))  // Good afternoon
+
+len() -- get the length of as string
+
+print(len("tree"))  //4
+
+-----.format()
+
+Instead of doing concating string we can use .format
+
+name= input("What is the job application's name?")
+degree= input("What did they major in at college?")
+job= input("What is their current occupation?")
+experience= input("How many years have they been working in their field?")
+
+print("{} majored in {}, works as a {}, and has {} years of experience.".format(name,degree,job,experience))
+
+
+///
+What is the job application's name?Sara
+What did they major in at college?Computer Science
+What is their current occupation?software engineer
+How many years have they been working in their field?7
+Sara majored in Computer Science, works as a software engineer, and has 7 years of experience.
+
+---- List
+
+A list is a data type that contains multiple values in an order sequence.
+Values within a list are also known as items.
+
+example_list_1 = [5,4,3,2,1]
+example_list_2 = [2.718,9.31]
+example_list_3 = ["blue", "green", "red", "yellow", "purple", "orange"]
+example_list_4 = [True,False,True,False]
+example_list_5 = [[1,2,3],[4,5],[6,7,8,9]]
+example_list_6 = [10,3.14159,"tree",False,[1,2,3]]
+
+list() 
+list function takes iterable data types such as string as an argument and converts it to a list that it then return
+
+print(list("blah"))
+['b', 'l', 'a', 'h']
+
+in and not in operators
+its used to check whether values are present or not
+
+checked_list = [1,2,3,4]
+
+print(1 in checked_list)  // True
+print(8 in checked_list)  // False
+
+not_in_example = 8 not in checked_list
+print(not_in_example)  // True
+
+-- indexes and list slicing
+
+indexes_example = ["carpet","hardwood","linoleum"]
+print(indexes_example[1])  // hardwood
+
+indexes_example_1 = [[1,2,3],[4,5,6],[7,8,9]]
+print(indexes_example_1[2][0])  // 7
+
+indexes_example = ["carpet","hardwood","linoleum"]
+print(indexes_example[2][0])  // l
+
+// negative indexes 
+
+negative = [1,2,3,4,5]
+print(negative[-1])  //5
+print(negative[-2])  // 4
+print(negative[-3])  //3
+print(negative[-4])  //2
+print(negative[-5]) //1
+
+
+// using items accessed by index expressions
+
+
+mixed = [False, 365, 4.24,"this is a string"]
+print(mixed[2] + 1.76) //6.0
+print("I have used \"" + mixed[-1] + "\" as an example too many times.")
+
+// output -- I have used "this is a string" as an example too many times.
+
+
+//list slicing
+
+to get specific portion of a list
+
+sliced = [1,2,3,4,5,6,7,8,9]
+print(sliced[:4])  // [1, 2, 3, 4]
+print(sliced[3:8])  // [4, 5, 6, 7, 8]
+print(sliced[6:]) // [7, 8, 9]
+
+// reassigning a lists items
+
+example = [2,4,6,8,0]
+print(example)  // [2,4,6,8,0]
+example[3] =10 
+print(example)  // [2,4,6,10,0]
+
+
+example[1:4] =[3,2,1] 
+print(example)  // [2,3,2,1,0]
+
+
+example[4:7] =[7,6,5] 
+print(example)  // [2,4,6,8,7,6,5]
+
+
+--- del and list methods
+
+del - allows to delete values from list
+
+planets = ["pluto","mars","earth","venus"]
+del planets[0]
+print(planets) // ['mars', 'earth', 'venus']
+
+.remove() -- allows you to remove of what you pass as an argument
+
+planets = ["pluto","mars","earth","venus"]
+planets.remove("pluto")
+print(planets)  // ['mars', 'earth', 'venus']
+
+
+colors = ["blue","red","white","blue","orange","blue"]
+colors.remove("blue")
+print(colors)  // ['red', 'white', 'blue', 'orange', 'blue']  (removes only first instance of blue)
+
+// del vs .remove()
+
+del removes an item based on index number
+remove method searched a list for whatever item you passed it as an argument and removes it from the list when it finds the item
+
+//.append() 
+adds item at the end of the list
+
+pets = ["cat","dog","parrot"]
+print(pets)  // ['cat', 'dog', 'parrot']
+pets.append("fish")
+print(pets) // ['cat', 'dog', 'parrot', 'fish']
+
+
+//.insert() 
+allows to add item anywhere in the list rather than just at its end.
+
+pets = ["cat","dog","parrot"]
+pets.insert(1,"turtle")
+print(pets)  // ['cat', 'turtle', 'dog', 'parrot']
+
+// .sort()
+
+sort list that are items strins or items with all numbers
+
+num_list = [2.718,4,-19,10000,0]
+print(num_list)  //[2.718,4,-19,10000,0]
+num_list.sort()
+print(num_list)  // [-19, 0, 2.718, 4, 10000]
+
+str_list = ["Ringo","John","George","Paul"]
+print(str_list)  // ['Ringo', 'John', 'George', 'Paul']
+str_list.sort()
+print(str_list)  // ['George', 'John', 'Paul', 'Ringo']
+
+// reverse=True
+
+num_list.sort(reverse=True) // [10000, 4,2.718,0,-19]
+
+str_list.sort(reverse=True)  // ['Ringo', 'Paul', 'John', 'George']
+
+//.sort() cannot be used on mixed data type list
+ Boolean value False is treated as 0 and True is treated as 1
+
+mixed = [False,5.67,-2]
+mixed.sort()
+print(mixed) // [-2, False, 5.67]
+
+sort uses ASCIIbetical order
+In ASCIIbetical order upperletters come before lowercase letters
+
+ASCIIbetical = ["Andy","kiwi","apple","Karen","Brian","banana"]
+ASCIIbetical.sort()
+print(ASCIIbetical)  // ['Andy', 'Brian', 'Karen', 'apple', 'banana', 'kiwi']
+
+To sort in actual alphabetical order
+
+ASCIIbetical = ["Andy","kiwi","apple","Karen","Brian","banana"]
+ASCIIbetical.sort(key=str.lower)
+print(ASCIIbetical)  // ['Andy', 'apple', 'banana', 'Brian', 'Karen', 'kiwi']
+
+//.index()
+
+finds the index of an item in list
+
+metals = ["copper","gold","silver","iron"]
+print(metals.index("silver"))   // 2
+
+numbers = [4,3,2,1,0,1,2,3,4]
+print(numbers.index(3))  // 1 (it takes only first item of list)
+
+// .pop() -- to remove item from a list
+
+bands = ["Queen","Led Zeppelin","The Beatles","MUSE","Radiohead"]
+end = bands.pop()
+print(bands)  // ['Queen', 'Led Zeppelin', 'The Beatles', 'MUSE']
+print(end)  //Radiohead
+
+end = bands.pop(3)
+print(bands)  // ['Queen', 'Led Zeppelin', 'The Beatles', 'Radiohead']
+print(end)  //MUSE
+
+-----  LIST vs. Strings
+
+lists = mutable  (values can be changed)
+strings = immutable (values cannot be changed)
+
+
+ex_1 = [1,2,3]
+ex_1[1] =5
+print(ex_1) // [1, 5, 3]
+
+ex_2 = "123"
+ex_2[1] = 5
+print(ex_2) // error as strings are immutable
+
+ex_2 = "123"
+ex_2 = "153"
+print(ex_2)  // 153
+
+// creating new strings from old strings
+
+ex_3 = "No, you can't."
+ex_4 = "Yes" + ex_3[3:11] + "!"
+print(ex_4) // Yes you can!
+
+// references
+
+ex_5 = 3.14
+ex_6 = "coconut"
+ex_7 = ex_5
+ex_8 = ex_6
+print(ex_7)  // 3.14
+print(ex_8)  // coconut
+
+ex_9 = [1,2,3,4,5]
+ex_10 = ex_9
+ex_10[2] = 4
+print(ex_9) //[1, 2, 4, 4, 5]
+print(ex_10) // [1, 2, 4, 4, 5]
+
+because of reference both value of list got changed
+All mutable data are stored as references
+All immutable data are stores as themselves
+It means string,integer,boolean, float doesn't have reference issue
+
+// copy module and deepcopy()
+
+import copy
+
+ex_12 = [1,2,3,4,5]
+ex_13 = copy.deepcopy(ex_12)
+ex_13[2] = 4
+print(ex_12)  // [1, 2, 3, 4, 5]
+print(ex_13)  // [1, 2, 4, 4, 5]
+
+// list line continuation
+
+we can define list values in multiple lines
+
+ex_15 = ["bush",
+         "fern",
+         "tree",
+         "moss"]
+
+print(ex_15) // ['bush', 'fern', 'tree', 'moss']
+
+-- \ line continuation
+
+we can use backslash of line
+
+ex_16 = 2 + \
+        4 + \
+        1
+
+print(ex_16) // 7
+
+ex_17 = "hello " + \
+        "world"
+
+print(ex_17) // hello world
+
+-------Dictonaries
+
+dictonaries are a data type which can store a collection of values like list.
+A dictionary is different from  list, in that instead of having to have each of its items to be assigned to an index number that is an integer, the items that a dictionary contains are assigned to keys which can be different data types such as floats and strings.
+
+consoles  = {"nintendo":"wii","microsoft":"xbox","sony":"playstation"}
+
+accessing by keys
+
+print(consoles["microsoft"]) // xbox
+
+val = consoles["microsoft"]
+print(val)  //xbox
+
+print("The " + consoles["sony"] + " 4 is Sony's newest gaming console.")
+ // The playstation 4 is Sony's newest gaming console.
+
+dictionaries are unordered unlike list
+
+print([2,4,6] == [2,4,6])  // True
+print([2,4,6] == [6,4,2])  // False
+
+whereas in dictionaries keys and values need to be same but ordered is not mandatory
+
+
+first = {0:2.1, 1:2.2, 2: 2.3, 3: 2.4}
+second = {2: 2.3, 0:2.1, 3:2.4, 1:2.2}
+print(first == second) // True
+
+// Keyerror
+
+If we try to get value using key which is not present then it gives key error
+
+first = {0:2.1, 1:2.2, 2:2.3, 3:2.4}
+print(first[4]) // error
+
+// To check if key exist in dictionary or not
+
+first = {0:2.1, 1:2.2, 2:2.3, 3:2.4}
+print(0 in first) // True
+print(1 not in first) // False
+
+----- Dictionary methods
+
+.keys()
+
+allows to get all the keys from the dictionary
+birth_years = {1994:"bill",1969:"emily",1982:"elizabeth",2000:"turner"}
+print(birth_years.keys())  
+// dict_keys([1994, 1969, 1982, 2000])
+
+for key in birth_years.keys():
+    print(key)
+
+1994
+1969
+1982
+2000
+
+.values()
+
+allows to get all the values from the dictionary
+
+print(birth_years.values())   // dict_values(['bill', 'emily', 'elizabeth', 'turner'])
+
+for value in birth_years.values():
+    print(value)
+
+bill
+emily
+elizabeth
+turner
+
+.item()
+
+allows to get both keys and values
+
+print(birth_years.items())  // dict_items([(1994, 'bill'), (1969, 'emily'), (1982, 'elizabeth'), (2000, 'turner')])
+
+for key, value in birth_years.items():
+    print(key,value)
+
+// 
+1994 bill
+1969 emily
+1982 elizabeth
+2000 turner
+
+
+checking what type above methods returns
+
+print(type(birth_years.keys()))
+print(type(birth_years.values()))
+print(type(birth_years.items()))
+
+// output
+<class 'dict_keys'>
+<class 'dict_values'>
+<class 'dict_items'>
+
+// using in and not in  on values
+
+print("elizabeth" in birth_years.values())  // True
+
+.get()
+
+allows to look for and get key from a dictionary and return something other than an error message which stops the program continuing from running if error is found
+
+if 1975 in birth_years:
+    print(birth_years[1975])
+else:
+    print("1975 is not key in birth_years.")
+
+// 1975 is not key in birth_years.
+
+Instead of checking like above we can use get method
+
+print(birth_years.get(1975,"1975 is not key in birth_years."))
+// 1975 is not key in birth_years.
+
+// other things need to know about dictionaries
+
+Dictionaries are immutable data type like lists which means that variables that have been assigned to dictionaries also hold references to dictionaries, not the dictionary values themselves
+
+
+
+print(birth_years)  // {1994: 'bill', 1969: 'emily', 1982: 'elizabeth', 2000: 'turner'}
+people = birth_years
+people[1982] = "madeline"
+print(birth_years)  // {1994: 'bill', 1969: 'emily', 1982: 'madeline', 2000: 'turner'}
+
+
+birth_years = {1994:"bill",
+               1969:"emily",
+               1982:"elizabeth",
+               2000:"turner"
+               }
+
+print(len(birth_years)) // 4
+
+
+---- Dictionaries methods
+
+.fromkeys()
+
+returns dictionary using two values that it was given as arguments.
+first argument is used as keys and seconds argument used as values.
+
+ex_1 = {}.fromkeys(["address"],"1600 Pennsylvania Avenue NW")
+print(ex_1)
+// {'address': '1600 Pennsylvania Avenue NW'}
+
+ex_2 = {}.fromkeys("ad","1600 Pennsylvania Avenue NW")
+print(ex_2)
+// {'a': '1600 Pennsylvania Avenue NW', 'd': '1600 Pennsylvania Avenue NW'}
+
+ex_2 = {}.fromkeys("addr","1600 Pennsylvania Avenue NW")
+print(ex_2)
+// {'a': '1600 Pennsylvania Avenue NW', 'd': '1600 Pennsylvania Avenue NW', 'r': '1600 Pennsylvania Avenue NW'}
+
+ex_3 = {}.fromkeys(["brand"])
+print(ex_3)
+//{'brand': None}
+
+.popup()
+
+removes an item from dictionaries . In dictionary we cannot call pop with no argument, because dictionaries are unordered so we need to pass arguments
+
+ex_4 = {"make":"Honda","model":"civic","year":2016}
+ex_4.pop("model")
+print(ex_4)
+// {'make': 'Honda', 'year': 2016}
+
+pop method also returns the removed value
+
+popped = ex_4.pop("model")
+print(popped)  // civic
+
+.popitem()
+
+allows to remove last keyvalue pair from a dictionary without having to give it an argument
+
+
+ex_3 = {"name":"bob","age":38,"occupation":"accountant","workplace":"H&R block"}
+ex_3.popitem()
+print(ex_3)
+// {'name': 'bob', 'age': 38, 'occupation': 'accountant'}
+
+ex_3.popitem("name") 
+print(ex_3) // error
+
+-----Dictionaries method
+
+.clear()
+
+removes everything from a dictionary that it is called on resulting an empty dictionary
+
+ex_4 = {1:"England",2:"Scotland",3:"Wales",4:"Northern Ireland"}
+print(ex_4)
+ex_4.clear()
+print(ex_4) 
+//
+{1: 'England', 2: 'Scotland', 3: 'Wales', 4: 'Northern Ireland'}
+{}
+
+.copy()
+
+copy fixes reference issue by returning exact copy of dictionary that has its own reference.
+
+birth_years_new = {1994:"bill",1969:"emily",1982:"elizabeth",2000:"turner"}
+print(birth_years_new)
+people = birth_years_new.copy()
+people[1982] = "madeline"
+print(birth_years_new)
+
+//
+{1994: 'bill', 1969: 'emily', 1982: 'elizabeth', 2000: 'turner'}
+{1994: 'bill', 1969: 'emily', 1982: 'elizabeth', 2000: 'turner'}
+
+.update()
+
+allows us to add key-value pairs from one dictionary to another or override values of existing keys in a dictionary
+
+city_info = {"country":"Canada","province":"Ontario","city":"Toronto"}
+population = {"population":2930000}
+city_info.update(population)
+print(city_info)
+print(population)
+
+// 
+{'country': 'Canada', 'province': 'Ontario', 'city': 'Toronto', 'population': 2930000}
+{'population': 2930000}
+
+
+city_info["population"] = 3000000
+print(city_info)
+city_info.update(population)
+print(city_info)
+//
+{'country': 'Canada', 'province': 'Ontario', 'city': 'Toronto', 'population': 3000000}
+{'country': 'Canada', 'province': 'Ontario', 'city': 'Toronto', 'population': 2930000}
+
+
+city_info.update({}) -- nothing will change
+
+-------
+.setdefault()
+
+This method is useful for when you got through a dictionary and look for keys,only to find that certain keys that you are looking for don't exist.This because setdefault allows to give values to keys if they are not found in a dictionary.
+
+computers = {"Google":"ChromeBook","Apple":"MacBook","Microsoft":"Surface Pro"}
+
+if "Lenovo" not in computers:
+    computers["Lenovo"] = "ThinkPad"
+
+print(computers)
+
+// {'Google': 'ChromeBook', 'Apple': 'MacBook', 'Microsoft': 'Surface Pro', 'Lenovo': 'ThinkPad'}
+
+computers = {"Google":"ChromeBook","Apple":"MacBook","Microsoft":"Surface Pro"}
+computers.setdefault("Lenovo","ThinkPad")
+print(computers)
+// {'Google': 'ChromeBook', 'Apple': 'MacBook', 'Microsoft': 'Surface Pro', 'Lenovo': 'ThinkPad'}
+
+
+computers = {"Google":"ChromeBook","Apple":"MacBook","Microsoft":"Surface Pro"}
+computers.setdefault("Apple","MacBook Pro")
+print(computers)
+// {'Google': 'ChromeBook', 'Apple': 'MacBook', 'Microsoft': 'Surface Pro'}
+values remain unchanged'
+
+dict()
+
+gives an alternative way to creat dictionary in python
+
+
+empty = dict()
+print(empty)  // {}
+with_values = dict(a=1, b=2, c=3)
+print(with_values)  // {'a': 1, 'b': 2, 'c': 3}
+
+
+-------Tuples
+
+Tuples are data types made up of collection of items.
+They are enclosed in parenthesis instead of square brackets.
+
+tuple_1 = ("a","b","c","d","e")
+tuple_2 = (2.718,False,[1,2,3])
+tuple_3 = (1,1,0,0,0)
+
+tuple() 
+This function creates a tuple
+
+tuple_5 = tuple([3.14,2.205,10])
+tuple_6 = tuple("edcba")
+
+print(tuple_5)  // (3.14, 2.205, 10)
+print(tuple_6) //('e', 'd', 'c', 'b', 'a')
+
+tuple_7 = tuple({"a":1, "b":2, "c":3})
+print(tuple_7)  // ('a', 'b', 'c')
+no use of creating tuple with key value pair it will take key only
+
+///  slicing examples in tuple
+
+tuple_8 = (1,2,3,4,5,6,7,8,9,10)
+print(tuple_8[2])  // 3
+print(tuple_8[:8]) // (1, 2, 3, 4, 5, 6, 7, 8)
+print(tuple_8[2:7]) // (3, 4, 5, 6, 7)
+print(tuple_8[3:])  //(4, 5, 6, 7, 8, 9, 10)
+
+/// Immutability of tuples
+
+tuples are immutable data types means they cannot be changed
+
+tuple_8 = (1,2,3,4,5,6,7,8,9,10)
+tuple_8[0] = "a"  // error
+
+// Why use tuples?
+
+Tuples are useful for when you want to have a collection of data that you know you will not change later on in the program.
+This is because their inability to change will prevent unwanted changes from being made to them.
+Tuples takes less memory as compare to list.
+
+--- tuple looping
+
+iterating over tuple is same as iterating over list
+
+major_cities = ("Tokyo","London","New York","Shanghai","Sydney")
+
+for city in major_cities:
+    print(city)
+
+Tokyo
+London
+New York
+Shanghai
+Sydney
+
+count = 0
+while count < len(major_cities):
+    print(major_cities[count])
+    count += 1
+
+Tokyo
+London
+New York
+Shanghai
+Sydney
+
+backwards = len(major_cities) -1
+while backwards >=0:
+    print(major_cities[backwards])
+    backwards -= 1
+
+Sydney
+Shanghai
+New York
+London
+Tokyo
+
+// tuples slicing with step
+
+
+ints = (1,2,3,4,5,6,7,8,9,10)
+print(ints[::3])  # string length of 3
+print(tuple_8[1::2])  # evens only
+print(tuple_8[7::-1])  # backwards from 8
+print(tuple_8[8::-2])  # odd only backwards
+
+(1, 4, 7, 10)
+(2, 4, 6, 8, 10)
+(8, 7, 6, 5, 4, 3, 2, 1)
+(9, 7, 5, 3, 1)
+
+-----Tuple Methods
+
+Nested tupes
+
+nested = (1,2,3,(4,5,6),(7,8,9),(10,11,12))
+print(nested[4])  // (7,8,9)
+print(nested[5][1]) // 11
+
+.count()
+
+returns number of times that a value entered as its argument appears in a tuple.
+
+repeat = (7,3,3,3,0,0,7,0,0)
+print(repeat.count(7)) //2
+print(repeat.count(3)) //3
+print(repeat.count(0)) //4
+
+.index()
+
+returns the index number 
+
+ints = (1,1,7)
+print(ints.index(7)) //2
+print(ints.index(1))  // 0
+
+-----Sets---------
+
+sets is a datatype that consists of a collection of items, much like a list.
+Sets cannot have duplicate values in them.
+Items they contain are unordered like the key-value pairs of a dictionary.
+
+
+set_1 = {9,8,7,6}
+set_2 = set({"a","b","c","d","e"})
+print(set_1)
+print(set_2)
+
+{8, 9, 6, 7}
+{'d', 'c', 'e', 'a', 'b'}
+
+set_3 = set()
+print(set_3)  // set()
+
+set_3_one = set(range(1,12,2))
+print(set_3_one)  // {1, 3, 5, 7, 9, 11}
+
+set cannot have access item by index so we need to use for loop
+
+set_5 = {3,6,9,12,15}
+
+for num in set_5:
+    print(num)
+
+3
+6
+9
+12
+15
+
+print(12 in set_5) // True
+
+// when sets are useful
+
+when we don't want duplicate items 
+
+
+----Set methods
+
+// .add()
+add items of any data type to the set
+
+scifi = {"star trek","star wars","halo"}
+scifi.add("mass effect")
+print(scifi)   // {'star wars', 'mass effect', 'halo', 'star trek'}
+
+// .remove()
+remove item from the set
+
+fruits = {"apple","orange","banana","tomato"}
+fruits.remove("tomato")
+print(fruits)  // {'orange', 'banana', 'apple'}
+fruits.remove("pear")  // error
+
+// .discard()
+discard does the same thing like remove
+difference is that if discard is used on item in set which is not there then it will just do nothing instead of error
+
+fruits.discard("pear")
+print(fruits)  // {"apple","orange","banana","tomato"}
+
+fruits.discard("apple")
+print(fruits)  // {"orange","banana","tomato"}
+
+// .clear()
+
+clear method takes no argument and just gets rid of everything in the set
+
+mountains = {"Everest","Kilimanjaro","Fuji"}
+print(mountains)
+mountains.clear()
+print(mountains)  
+
+//
+{'Everest', 'Fuji', 'Kilimanjaro'}
+set()
+
+// .copy()
+
+copy method returns the copy of a set that has its own place in memory
+
+set_6 = mountains.copy()
+print(set_6 is mountains) // False
+
+// .union()
+
+allows to combine all items from two different sets into a single set.
+
+set_7 = {1,2,3,4,5}
+set_8 = {6,7,8,9,10}
+set_9 = set_7.union(set_8)
+print(set_9)  // {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+another way is to use pipe
+
+set_9 = set_7 | set_8
+print(set_9)  // {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+// .intersection()
+
+intersection is a method which allows you to find out what items two sets have in common which is also known as intersection.
+
+set_10 = {4,5,6,7,8}
+set_11 = {6,7,8,9,10}
+set_12 = set_10.intersection(set_11)
+print(set_12) // {8, 6, 7}
+
+another way is use &
+
+set_12 = set_10 & set_11
+print(set_12) // {8, 6, 7}
+
+// subtraction and .difference()
+
+subtraction removes the intersection from the set
+
+set_13 = {4,5,6,7,8}
+set_14 = {6,7,8,9,10}
+set_15 = set_14 - set_13
+print(set_15)  // {9, 10}
+
+set_16 = set_13 - set_14
+print(set_16)  // {4,5}
+
+another way is to use difference method
+
+set_16 = set_13.difference(set_14)
+print(set_16)  // {4,5}
+
+---- set comprehension
+
+advance way of creating a set
+
+comp_1 = {even+2 for even in range(2,11,2)} 
+print(comp_1)  // {4, 6, 8, 10, 12}
+
+comp_2 = {char.lower() for char in "ALLCAPS"} 
+print(comp_2)  //  {'c', 's', 'a', 'l', 'p'}

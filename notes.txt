@@ -1,0 +1,1802 @@
+--Angular Tutorials
+
+we can define standalone:true in appcomponent which means it doesn't requires module and ngmodules
+
+<router-outlet> -- this is where all the routing applications will be displayed here.
+
+main.ts is the entry point of application
+main.ts -- load app.config.ts -- which has routes added which is app.route.ts
+
+subject - its used for multicasting, and it is like hot obervables where They do not get the data that was emitted before they subscribed.
+BehaviourSubject - this holds initial value and helps to manage state of your application.
+
+we can inject service as inject(cartservice);
+
+ForkJoin --  the forkJoin operator from RxJS is used to combine multiple observables into a single observable. It waits for all the input observables to complete and then emits an array containing the last emitted values from each observable. If any of the input observables errors, forkJoin will immediately error as well.
+
+deep copy and shallow copy -
+ let newEmployee = JSON.parse(JSON.stringify(employee));
+
+const deepCopy = cloneDeep(original);
+
+
+
+
+---------- Angular ------
+pseudo class and pseudo elements
+how to optimize the angular speed when trying to load data in bulk in html which is causing the screen to lag
+difference between section and div
+what is flex-flow and grid
+When one observable needs to be triggered after the completion of another in Angular, the concatMap operator from RxJS is the most suitable choice. concatMap ensures that the second observable only begins emitting values after the first observable has completed. 
+Closure Example
+standalone components
+what is type void , any and unknown , never
+
+let vAny: any = 10; // We can assign anything to any
+let vUnknown: unknown = 10; // We can assign anything to unknown just like any
+
+let s1: string = vAny; // Any is assignable to anything
+let s2: string = vUnknown; // Invalid we can't assign unknown to any other type (without an explicit assertion)
+
+vAny.method(); // ok anything goes with any
+vUnknown.method(); // not ok, we don't know anything about this variable
+
+never example
+
+If a function throws an error or has an infinite loop, it never successfully completes—so its return type is never.
+
+
+function doTask(tasks:number): void | never{
+	if(tasks>3){
+	throw new Error('Too many tasks!');
+}
+}
+
+const stuff = doTasks(2);
+
+
+-----------------
+remove duplicates of an array - 
+const arrayWithDuplicates = [1, 2, 2, 3, 4, 4, 5];
+const uniqueArray = [...new Set(arrayWithDuplicates)];
+console.log(uniqueArray); // Output: [1, 2, 3, 4, 5]
+
+----------
+
+const arr = [1,2,2,3,3,4,4,5,5,6];
+
+let newarr = [];
+let countArr;
+for(let i=0;i<arr.length;i++){
+    if(arr[i]== arr[i-1]){
+        newarr.push(arr[i]);
+    }
+}
+console.log(newarr);
+
+------------
+const routes: Routes = [
+  { path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule) },
+];
+
+-------------
+const promise = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve("hello");
+    },1000)
+});
+
+promise.then((res)=>{
+    console.log(res);
+});
+
+-----Http API call of promise ----
+
+function makeGetRequest(url) {
+  return new Promise((resolve, reject) => {
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+  });
+}
+
+makeGetRequest('https://api.example.com/data')
+  .then(data => {
+    console.log('Response data:', data);
+  })
+  .catch(error => {
+    console.error('Error:', error.message);
+  });
+----------
+let promise = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve("hello")
+    },1000)
+});
+
+async function myFunc(){
+    let response = await promise;
+    console.log("before promise response");
+    console.log(response);
+}
+
+myFunc();
+
+
+While both Promises and Observables can be used for fetching API data, Observables offer several advantages, particularly in more complex or reactive programming scenarios:
+
+Multiple Values Over Time:
+Promises are designed for a single, eventual value. Once a Promise resolves or rejects, its lifecycle is complete. Observables, on the other hand, can emit multiple values over time, making them ideal for handling data streams, real-time updates (like WebSocket data), or user input events that occur continuously.
+
+Cancellation:
+Observables can be cancelled, meaning you can stop listening for future emissions if they are no longer needed. This is crucial for managing resources and preventing unnecessary network requests, especially in scenarios like type-ahead search where previous requests might become irrelevant. Promises do not inherently support cancellation.
+
+RxJS Operators:
+Observables integrate seamlessly with RxJS, a powerful library for reactive programming. RxJS provides a rich set of operators (e.g., map, filter, debounceTime, switchMap, retry) that allow for declarative and efficient transformation, combination, and manipulation of data streams. This enables complex asynchronous logic to be expressed concisely and elegantly.
+
+Error Handling and Retries:
+Observables offer more sophisticated error handling mechanisms and built-in operators for retrying failed operations, which can be valuable for handling transient network issues or API errors.
+
+Unicast vs. Multicast:
+By default, Observables are unicast, meaning each subscriber gets a new execution of the Observable. However, they can be made multicast, allowing multiple subscribers to share a single execution, which can be more efficient in certain scenarios. Promises are inherently unicast.
+
+Lazy Execution:
+Observables are "lazy" by default; they do not start emitting values until a subscriber explicitly subscribes to them. This can be advantageous in scenarios where you only want to perform an operation if there's an active consumer for the data. Promises execute immediately upon creation.
+When to use Promises:
+For simple, one-time asynchronous operations where you expect a single result and don't require cancellation or complex data transformations.
+When integrating with third-party libraries or browser APIs that are inherently Promise-based (e.g., fetch).
+When to use Observables:
+For handling streams of data or events that emit multiple values over time.
+When you need cancellation capabilities for ongoing asynchronous operations.
+When you want to leverage the power of RxJS operators for data transformation and manipulation.
+In Angular applications, where Observables are a fundamental part of the framework (e.g., HttpClient returns Observables).
+
+------------
+let number = [2,4,7,8,1];
+let evenNumbers = number.filter((number)=>number%2===0);
+console.log(evenNumbers);
+
+let doubleNumbers= number.map(number=> number*2);
+console.log(doubleNumbers);
+
+output
+[ 2, 4, 8 ]
+[ 4, 8, 14, 16, 2 ]
+
+
+// splice() example
+let splicedArray = originalArray.splice(1, 2, 6, 7);
+console.log(splicedArray); // Output: [2, 3] (removed elements)
+console.log(originalArray); // Output: [1, 6, 7, 4, 5] (original array modified)
+
+
+--------------
+1. Passing data using route parameters
+
+const routes: Routes = [
+  { path: 'treasure/:id', component: TreasureComponent }
+];
+
+this.router.navigate(['/treasure', treasureId]);
+
+constructor(private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.treasureId = this.route.snapshot.paramMap.get('id');
+  }
+
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.userId = params.get('id'); // 'id' should match the parameter name defined in your route
+      // Perform actions based on the userId, e.g., fetch user data
+    });
+
+
+2. Passing data using query params
+
+const routes: Routes = [
+  { path: 'treasure', component: TreasureComponent }
+];
+
+this.router.navigate(['/treasure'], { queryParams: { clue: 'map' } });
+
+ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.clue = params['clue'];
+    });
+  }
+
+3. Using Route Data
+
+const routes: Routes = [
+  { path: 'treasure', component: TreasureComponent, data: { clue: 'map' } }
+];
+
+constructor(private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.data.subscribe(data => {
+      this.clue = data['clue'];
+    });
+  }
+
+4. 
+
+{ path: 'profile', component: ProfileComponent, resolve: { user: UserResolver } }
+
+// Access
+this.route.data.subscribe(data => {
+  this.user = data['user'];
+});
+
+5.Pass complex objects without exposing them in the URL.
+
+
+// Navigate
+this.router.navigate(['/details'], { state: { user: { id: 1, name: 'Alice' } } });
+
+// Access
+const nav = this.router.getCurrentNavigation();
+const user = nav?.extras.state?.['user'];
+
+
+
+-----------------
+input dataflow ---------
+
+<app-child [message]="parentMessage"></app-child>
+
+parentMessage = "Hello from Parent!";
+
+@Input() message: string;
+
+<p>{{ message }}</p>
+
+output dataflow --------
+
+<button (click)="sendMessage()">Send Message</button>
+
+@Output() messageEvent = new EventEmitter<string>();
+  sendMessage() {
+      this.messageEvent.emit("Hello from Child!");
+    }
+
+
+ <app-child (messageEvent)="receiveMessage($event)"></app-child>
+
+ receiveMessage(msg: string) {
+    this.message = msg;
+  }
+
+-----------
+Subject and BehaviorSubject are both types of Observables from the RxJS library, used for managing and broadcasting data streams. They differ primarily in how they handle the "current" or "latest" value for new subscribers.
+
+const subject = new Subject<string>();
+    subject.subscribe((data) => {
+      console.log('subscriber1 ' + data);
+    });
+    subject.subscribe((data) => {
+      console.log('subscriber2 ' + data);
+    });
+    subject.next('1');
+    subject.next('2');
+
+const behavesubject = new BehaviorSubject<number>(0);
+   behavesubject.subscribe((data)=>{
+    console.log("Subscriber output" + data);
+   });
+
+   behavesubject.next(10);
+   behavesubject.next(20);
+
+
+of: Emits the provided values sequentially as an Observable.
+const observable = of(1, 2, 3);
+from: Creates an Observable from an array, promise, or iterable.
+const observable = from([1, 2, 3]);
+interval: Emits sequential numbers at a specified interval (in milliseconds).
+const observable = interval(1000);
+timer: Emits a single value after a specified delay or emits values periodically after an initial delay.
+const observable = timer(3000);
+fromEvent: Creates an Observable from DOM events.
+const button = document.getElementById('myButton');
+const observable = fromEvent(button, 'click');
+
+const observ = of(1,2,3);
+  observ.subscribe((data)=>{
+    console.log(data);
+  });
+
+-----------------------
+
+forkJoin is used to combine the results of multiple observables into a single observable. It waits for all the input observables to complete and then emits an array containing the last emitted values from each observable.
+
+const observable1 = of(1, 2, 3);
+const observable2 = of('a', 'b', 'c');
+const observable3 = of(true);
+
+forkJoin([observable1, observable2, observable3]).subscribe(
+  ([value1, value2, value3]) => {
+    console.log('forkJoin result:', value1, value2, value3); // Output: 3, "c", true
+  }
+);
+
+
+concatMap is used to switch to a new observable provided by a function that takes a value emitted by the source observable, emitting the values of this new observable, and then switching to the next source value only when that observable completes. It maintains the order of emissions.
+
+const conactobserv1 = of("result of first api");
+    const conactobserv2 = of("result of second api");
+    const conactobserv3 = of("result of second api");
+
+    const source = of(conactobserv1,conactobserv2,conactobserv3);
+    source.pipe(
+      concatMap(apiCall => apiCall )
+    ).subscribe((result)=>{
+      console.log(result);
+    });
+
+---------------
+ interceptors allow developers to intercept and handle HTTP requests and responses globally within an application.
+
+
+
+---------
+Asynchronous Operation Tracking:
+Zone.js creates a context or "zone" to monitor asynchronous tasks. When these tasks complete, Zone.js signals Angular to run change detection.
+Change Detection Trigger:
+Angular's change detection mechanism is not part of Zone.js, but it uses Zone.js to be triggered automatically.
+NgZone Service:
+Angular uses the NgZone service, which forks a child zone, to subscribe to notifications from Zone.js and trigger change detection.
+Running Outside Angular:
+The NgZone service also provides runOutsideAngular() method to execute code outside the Angular zone, preventing change detection triggers.
+Zoneless Angular:
+Angular is moving towards a "zoneless" approach, where change detection is triggered manually or through signals, eliminating Zone.js as a dependency.
+In summary, Zone.js is a powerful tool for managing asynchronous operations and automatically triggering change detection in Angular applications, although the framework is now also exploring zoneless alternatives.
+
+constructor(private ngZone: NgZone) {}
+
+  onClick() {
+    this.ngZone.run(() => {
+      this.message = 'World';
+    });
+  }
+
+---------
+ this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        console.log('Task completed outside Angular zone');
+        this.ngZone.run(() => {
+          console.log('Back inside Angular zone');
+        });
+      }, 2000);
+    });
+
+
+
+
+---------
+Change detection
+
+Angular runs change detection on every event (click HTTP response, timer,etc.)
+It checks each component's bindings and expression for changes
+If a change is detected Angular updates the DOM View
+
+There are two startegies:
+
+1. Default(default strategy)
+Angular checks every component from top to bottom in the component tree.
+It compares old values with new ones using dirty checking
+
+2. OnPush
+Angular only checks the component if input properties change or event originates from it
+Improves performance especially in large applications
+
+@Component({
+selector:
+templateUrl:
+changeDetection:ChangeDetectionStrategy.OnPush
+})
+
+Manual Change Detection 
+
+constructor(private cdr: ChangeDetectorRef){}
+
+updateManually(){
+
+this.cdr.detectChanges();
+}
+
+----------
+closure
+
+function myCounter() {
+  let counter = 0;
+  return function() {
+    counter++;
+    return counter;
+  };
+}
+
+const add = myCounter();
+add()
+
+
+
+function randomFunc(){
+  var obj1 = {name:"Vivian", age:45};
+
+  return function(){
+    console.log(obj1.name + " is "+ "awesome"); // Has access to obj1 even when the randomFunc function is executed
+
+  }
+}
+
+var initialiseClosure = randomFunc(); // Returns a function
+
+initialiseClosure(); 
+
+
+
+
+-----------
+
+call():
+
+It’s a predefined method in javascript.
+This method invokes a method (function) by specifying the owner object.
+
+function sayHello(){
+  return "Hello " + this.name;
+}
+        
+var obj = {name: "Sandy"};
+        
+sayHello.call(obj);
+
+function saySomething(message){
+  return this.name + " is " + message;
+}     
+var person4 = {name:  "John"};     
+saySomething.call(person4, "awesome");
+
+apply()
+
+The apply method is similar to the call() method. The only difference is that,
+
+call() method takes arguments separately whereas, apply() method takes arguments as an array.
+
+function saySomething(message){
+  return this.name + " is " + message;
+}        
+var person4 = {name:  "John"};
+saySomething.apply(person4, ["awesome"]);
+
+bind():
+
+This method returns a new function, where the value of “this” keyword will be bound to the owner object, which is provided as a parameter.
+
+var bikeDetails = {
+    displayDetails: function(registrationNumber,brandName){
+    return this.name+ " , "+ "bike details: "+ registrationNumber + " , " + brandName;
+  }
+}
+   
+var person1 = {name:  "Vivek"};
+     
+var detailsOfPerson1 = bikeDetails.displayDetails.bind(person1, "TS0122", "Bullet");
+      
+// Binds the displayDetails function to the person1 object
+        
+      
+detailsOfPerson1();
+//Returns Vivek, bike details: TS0122, Bullet
+
+----------------
+
+callback example
+
+// function
+function greet(name, callback) {
+    console.log('Hi' + ' ' + name);
+    callback();
+}
+
+// callback function
+function callMe() {
+    console.log('I am callback function');
+}
+
+// passing function as an argument
+greet('Peter', callMe);
+
+Hi Peter
+I am callback function
+
+-----------------
+spread and rest operators
+
+// Example: Spreading an array into a new array
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5]; // arr2 is [1, 2, 3, 4, 5]
+
+// Example: Spreading an array into a function call
+function sum(a, b, c) {
+  return a + b + c;
+}
+const numbers = [1, 2, 3];
+const result = sum(...numbers); // result is 6
+
+
+
+
+-----------
+
+rest operators
+
+function sum(...numbers) {
+    return numbers.reduce((acc, num) => acc + num, 0);
+}
+
+console.log(sum(1, 2, 3, 4, 5)); // Output: 15
+
+
+------------
+// Example: Collecting remaining elements in destructuring
+const [first, ...rest] = [1, 2, 3, 4];
+console.log(first); // Output: 1
+console.log(rest); // Output: [2, 3, 4]
+
+Destructuring ---
+// Create an Array
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+// Destructuring Assignment
+let [fruit1, fruit2] = fruits;  // Banana, Orange
+-------------
+code to iterate arrays with multiple object values
+
+const myObjects = [
+  { name: "Object 1", value: 10 },
+  { name: "Object 2", value: 20 },
+  { name: "Object 3", value: 30 },
+];
+
+myObjects.forEach((obj) => {
+  console.log(obj.name);
+  console.log(obj.value);
+});
+
+
+const data = [
+  {
+    id: 1,
+    name: "Item 1",
+    details: {
+      description: "Description of item 1",
+      price: 10,
+    },
+  },
+  {
+    id: 2,
+    name: "Item 2",
+    details: {
+      description: "Description of item 2",
+      price: 20,
+    },
+  }
+];
+
+data.forEach((item) => {
+  console.log(`Item ID: ${item.id}`);
+  console.log(`Item Name: ${item.name}`);
+  console.log(`Description: ${item.details.description}`);
+  console.log(`Price: ${item.details.price}`);
+});
+
+--------------
+@ViewChild and @ViewChildren are decorators used to access and manipulate DOM elements, components, or directives within a component's template.
+
+@ViewChild
+Used to query a single element, component, or directive from the view.
+
+<div #myDiv></div>
+    <p #myParagraph>Paragraph 1</p>
+    <p #myParagraph>Paragraph 2</p>
+    <p #myParagraph>Paragraph 3</p>
+
+
+@ViewChild('myDiv') myDiv: ElementRef;
+  @ViewChildren('myParagraph') myParagraphs: QueryList<ElementRef>;
+
+  ngAfterViewInit() {
+    console.log('myDiv', this.myDiv); // Access the div element
+    console.log('myParagraphs', this.myParagraphs); // Access the QueryList of p elements
+  }
+
+-------------
+@ContentChild and @ContentChildren are decorators used to access elements or components projected into a component using <ng-content>. They differ from @ViewChild and @ViewChildren, which access elements within the component's own template. 
+
+<div class="container">
+      <ng-content></ng-content>
+    </div>
+
+@ContentChild('header', { read: ElementRef }) headerElement: ElementRef;
+  @ContentChildren('content', { read: ElementRef }) contentElements: QueryList<ElementRef>;
+
+  ngAfterContentInit() {
+      console.log('Header Element:', this.headerElement);
+      console.log('Content Elements:', this.contentElements);
+  }
+
+<!-- Parent component template -->
+<app-container>
+  <h2 #header>This is a header</h2>
+  <p #content>This is some content</p>
+  <p #content>This is more content</p>
+</app-container>
+
+----------------
+InjectionToken is a special type of token used for dependency injection. It allows you to define and provide values that are not necessarily classes, such as configuration objects or primitive values
+
+Why Use InjectionToken?
+- Helps inject values that are not classes (e.g., strings, numbers, objects).
+- Avoids naming conflicts when using string-based tokens.
+- Improves type safety in dependency injection.
+
+import { InjectionToken } from '@angular/core';
+
+export const API_URL = new InjectionToken<string>('API_URL');
+
+providers: [
+  { provide: API_URL, useValue: 'https://api.example.com' }
+]
+
+
+import { Inject } from '@angular/core';
+
+constructor(@Inject(API_URL) private apiUrl: string) {
+  console.log(this.apiUrl); // Outputs: 'https://api.example.com'
+}
+
+--------------
+Authentication: Verifying a user's identity (e.g., login with username/password).
+Authorization: Determining what a user is allowed to access.
+JWT (JSON Web Token): A compact, URL-safe means of representing claims to be transferred between two parties. It's digitally signed, making it tamper-proof.
+Token-Based Authentication: Unlike session-based, JWTs are stateless. The server doesn't need to store session data.
+
+https://medium.com/@faruktaiwo/user-authentication-and-authorization-in-angular-16-with-jwt-2e43fd50263c
+
+https://jasonwatmore.com/post/2022/11/15/angular-14-jwt-authentication-example-tutorial
+
+https://blog.angular-university.io/angular-jwt-authentication/
+
+
+-----------
+encapsulation
+
+------
+ngClass and ngStyle example
+
+ <div [ngClass]="{'highlight': isHighlighted}" [ngStyle]="{'color': textColor, 'font-size': fontSize}">
+        This text changes style dynamically!
+    </div>
+
+<div [ngClass]="isActive ? 'activeHighlight' : 'inactiveHighlight' "></div>
+
+---------
+function countCharacter(str, char) {
+    let count = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === char) {
+            count++;
+        }
+    }
+    return count;
+}
+
+console.log(countCharacter("hello world", "l"));
+
+---------
+https://capgemini.udemy.com/course/angular-interview-questions-answers/learn/lecture/19500736#overview
+
+-----------
+slice pipe
+This extracts elements from index 1 to 3 (excluding index 4).
+
+
+ myArray = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
+
+<p>{{ myArray | slice:1:4 }}</p> <!-- Output: Banana, Cherry, Date -->
+
+----------------
+<input type="text" name="username" ngModel required minlength="4">
+
+this.form = new FormGroup({
+  username: new FormControl('', [Validators.required, Validators.minLength(4)])
+});
+
+------------------
+ <button type="submit" [disabled]="userForm.invalid">Submit</button>
+
+-------
+if (this.userForm.valid) {
+  console.log('Form is valid!');
+} else {
+  console.log('Form has errors!');
+}
+
+
+if (this.userForm.get('email')?.valid) {
+  console.log('Email is valid!');
+} else {
+  console.log('Invalid email format!');
+}
+
+
+if (this.userForm.get('email')?.hasError('required')) {
+  console.log('Email is required!');
+}
+if (this.userForm.get('email')?.hasError('email')) {
+  console.log('Invalid email format!');
+}
+
+this.loginForm.get('username')?.value
+
+----------
+Standalone components in Angular are components that do not require an NgModule to function. They simplify application structure and reduce boilerplate code.
+
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-standalone-with-deps',
+  template: `<p>Standalone Component with Dependencies</p>`,
+  standalone: true,
+  imports: [CommonModule]
+})
+export class StandaloneWithDepsComponent {}
+
+---------
+providedIn: 'any', - A new instance of the service is created for each lazy-loaded module.
+
+providedIn: 'platform', - - The service is provided at the platform level, meaning it is shared across multiple applications running in the same environment.
+
+providedIn: 'root', - - The service is available application-wide as a singleton.
+
+---------
+https://www.geeksforgeeks.org/angular-17-whats-new/
+
+-------
+NgRx is a state management library for Angular applications, inspired by Redux. It helps manage application state in a predictable and reactive way using RxJS.
+Key Concepts of NgRx
+- Store: A centralized state container that holds the application state.
+- Actions: Events that describe state changes (e.g., ADD_ITEM, REMOVE_ITEM).
+- Reducers: Pure functions that take the current state and an action, then return a new state.
+- Selectors: Functions that retrieve specific parts of the state efficiently.
+- Effects: Handle side effects like API calls and asynchronous operations.
+How NgRx Works
+- The store holds the application state.
+- Actions trigger state changes.
+- Reducers process actions and update the store.
+- Selectors retrieve data from the store.
+- Effects handle async operations like API calls.
+
+
+// counter.actions.ts
+import { createAction } from '@ngrx/store';
+
+export const increment = createAction('[Counter] Increment');
+export const decrement = createAction('[Counter] Decrement');
+export const reset = createAction('[Counter] Reset');
+
+// counter.reducer.ts
+import { createReducer, on } from '@ngrx/store';
+import { increment, decrement, reset } from './counter.actions';
+
+export const initialState = 0;
+
+export const counterReducer = createReducer(
+  initialState,
+  on(increment, state => state + 1),
+  on(decrement, state => state - 1),
+  on(reset, () => 0)
+);
+
+// app.config.ts
+import { provideStore } from '@ngrx/store';
+import { counterReducer } from './counter.reducer';
+
+export const appConfig = {
+  providers: [
+    provideStore({ count: counterReducer })
+  ]
+};
+
+// app.component.ts
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { increment, decrement, reset } from './counter.actions';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <h1>Counter: {{ count() }}</h1>
+    <button (click)="increment()">+</button>
+    <button (click)="decrement()">−</button>
+    <button (click)="reset()">Reset</button>
+  `
+})
+export class AppComponent {
+  count = this.store.selectSignal(state => state.count);
+
+  constructor(private store: Store) {}
+
+  increment() {
+    this.store.dispatch(increment());
+  }
+
+  decrement() {
+    this.store.dispatch(decrement());
+  }
+
+  reset() {
+    this.store.dispatch(reset());
+  }
+}
+
+
+-------
+Angular testing example 
+
+https://baldur.gitbook.io/angular/interview-q-and-a/angular-unit-testing-interview-questions
+
+function message() {
+  return 'Hello world!';
+}
+
+describe('Hello world', () => { 
+  it('says hello', () => { 
+    expect(message()) 
+        .toEqual('Hello world!'); 
+  });
+});
+---------------
+switchMap
+
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+let srcObservable = of(1, 2, 3, 4);
+let innerObservable = of('A', 'B', 'C', 'D');
+
+srcObservable.pipe(
+  switchMap(val => {
+    console.log('Source value ' + val);
+    console.log('Starting new observable');
+    return innerObservable;
+  })
+).subscribe(ret => {
+  console.log('Received ' + ret);
+});
+
+---------------
+Key Differences
+- switchMap: Cancels the previous inner observable when a new value arrives from the source observable. This is useful when you only care about the latest emitted value, such as handling API requests where only the most recent response matters.
+- mergeMap: Does not cancel previous inner observables. Instead, it subscribes to all inner observables concurrently, making it ideal for scenarios where multiple asynchronous operations should run in parallel.
+Example Use Cases
+- Use switchMap when dealing with search suggestions or live data updates, where only the latest request matters.
+- Use mergeMap when handling multiple API calls or parallel tasks, such as fetching data for multiple items at once.
+
+merge operator 
+- Combines multiple observables and emits values as soon as they arrive.
+- Does not wait for one observable to complete before moving to the next.
+- Useful when you want real-time updates from multiple sources.
+
+
+const obs1 = of('A');
+const obs2 = of('B');
+const mergedObs = merge(obs1, obs2);
+
+mergedObs.subscribe(value => console.log(value));
+// Output: "A", "B" (order may vary)
+
+
+forkJoin
+
+- Runs multiple observables in parallel but waits for all to complete before emitting a final result.
+- Useful for API calls where you need all responses before proceeding.
+
+const obs1 = of('A');
+const obs2 = of('B');
+const joinedObs = forkJoin([obs1, obs2]);
+
+joinedObs.subscribe(value => console.log(value));
+// Output: ["A", "B"] (only after both complete)
+
+
+const request1 = this.http.get('https://jsonplaceholder.typicode.com/users/1');
+    const request2 = this.http.get('https://jsonplaceholder.typicode.com/users/2');
+    const request3 = this.http.get('https://jsonplaceholder.typicode.com/users/3');
+
+    forkJoin([request1, request2, request3]).subscribe(results => {
+      console.log('User 1:', results[0]);
+      console.log('User 2:', results[1]);
+      console.log('User 3:', results[2]);
+    });
+
+
+mergeMap
+- Used inside pipe() to map each emitted value to a new observable.
+- Runs multiple inner observables in parallel.
+- Useful for dependent API calls where one request depends on another.
+
+const obs1 = of('A');
+
+obs1.pipe(
+  mergeMap(value => of(`${value} processed`))
+).subscribe(result => console.log(result));
+
+// Output: "A processed"
+
+///Another example
+
+ const observ1 = of('First Observable');
+    const observ2 = of('Second Observable');
+
+    const source = of(observ1,observ2);
+    source.pipe(
+      mergeMap(value => value)
+    ).subscribe((resp)=>{
+      console.log(resp);
+    });
+
+concat
+
+- Combines multiple observables in order.
+- Waits for one observable to complete before moving to the next.
+- Useful when you need preserved order.
+
+const obs1 = of('A');
+const obs2 = of('B');
+const obs3 = of('C');
+
+const concatenatedObs = concat(obs1, obs2, obs3);
+concatenatedObs.subscribe(value => console.log(value));
+
+// Output: "A", "B", "C" (in order)
+
+
+concatMap
+
+- Maps each emitted value to a new observable in order.
+- Waits for the previous observable to complete before starting the next.
+- Useful for preserving order in API calls.
+
+const obs1 = of('A', 'B', 'C');
+
+obs1.pipe(
+  concatMap(value => of(`${value} processed`))
+).subscribe(result => console.log(result));
+
+// Output: "A processed", "B processed", "C processed" (in order)
+
+/////Another example
+
+ const observ1 = of('First Observable');
+    const observ2 = of('Second Observable');
+
+    const source = of(observ1,observ2);
+    source.pipe(
+      concatMap(value => value)
+    ).subscribe((resp)=>{
+      console.log(resp);
+    });
+
+
+combineLatest
+
+- It waits for each observable to emit at least once before producing output.
+- Every time any observable emits, it recalculates the output using the latest values from all observables.
+- It’s great for synchronizing multiple streams like API responses, user inputs, or state changes.
+
+const obs1 = of('A', 'B', 'C'); // Emits values sequentially
+const obs2 = of(1, 2, 3); // Emits numbers sequentially
+
+combineLatest([obs1, obs2]).subscribe(([val1, val2]) => {
+  console.log(`Latest values: ${val1}, ${val2}`);
+});
+
+// Output:
+// "Latest values: C, 1"
+// "Latest values: C, 2"
+// "Latest values: C, 3"
+
+
+exhaustMap
+
+Imagine a login button that triggers an HTTP request. You want to ignore repeated clicks while the request is in progress:
+
+
+  ngAfterViewInit() {
+    const loginButton = document.getElementById('login-btn');
+
+    if (loginButton) {
+      fromEvent(loginButton, 'click').pipe(
+        exhaustMap(() => {
+          const { username, password } = this.loginForm.value;
+          return this.authService.login(username, password);
+        })
+      ).subscribe({
+        next: (response) => console.log('Login success:', response),
+        error: (err) => console.error('Login failed:', err)
+      });
+    }
+  }
+
+
+Prevents duplicate login requests if the user clicks multiple times.
+Ensures only one request is active at a time.
+Ideal for form submissions, file uploads, or navigation guards.
+
+----------
+JavaScript is primarily asynchronous, but it has synchronous behavior as well.
+By default, JavaScript executes code synchronously, meaning one line at a time in order. However, it has asynchronous features—like callbacks, Promises, and async/await—that allow non-blocking execution. This means JavaScript can continue running other tasks while waiting for operations like network requests or timers to complete.
+For example:
+- Synchronous: Basic operations like variable assignments and mathematical calculations happen one after another.
+- Asynchronous: Fetching data from an API or reading a file happens in the background while other code continues executing.
+
+
+----------
+Prototypes
+
+const a = [1,2,3]
+a.push(4);
+console.log(a);
+
+-----------
+inteface , union , ? , common use of functions 
+
+&&= operator ----
+
+let a = true;
+let b = "Hello";
+
+a &&= b; // If 'a' is true, assign 'b' to 'a'
+
+console.log(a); // Output: "Hello"
+
+In TypeScript, an interface is like a contract that defines the shape of an object—what properties and methods it should have—without specifying how they’re implemented.
+🧩 Why use interfaces?
+- Type safety: Ensures objects follow a specific structure.
+- Code clarity: Makes your code easier to understand and maintain.
+- Reusability: Interfaces can be reused across multiple components or classes.
+
+interface Product {
+  name: string;
+  price: number;
+  inStock: boolean;
+}
+
+const laptop: Product = {
+  name: "MacBook Pro",
+  price: 150000,
+  inStock: true
+};
+
+Here, the Product interface ensures that any object labeled as a Product must have name, price, and inStock properties with the correct types.
+
+Optional & Readonly Properties---------
+
+interface Car {
+  readonly vin: string;
+  model: string;
+  color?: string; // optional
+}
+
+
+- readonly: Can’t be changed after initialization.
+- ?: Optional property.
+Interfaces are a cornerstone of TypeScript’s type system, helping you write more robust and predictable code. Want to see how interfaces compare to type aliases or how to extend interfaces? I can show you that too!
+
+
+----
+how we can take the image from parent component using which tag in angular
+
+<img [src]="imageSrc" alt="Parent Image">
+
+---------
+for storing the state which state variable we can use
+
+Local Storage ,
+
+JWT token
+
+-------
+
+setInterval----------
+
+Executes a function repeatedly at a fixed time interval
+
+const intervalId = setInterval(() => {
+  console.log("This runs every 1 second");
+}, 1000);
+
+clearInterval(intervalId);
+
+
+
+setTimeout -------------
+
+Executes a function once after a specified delay (in milliseconds)
+
+setTimeout(() => {
+  console.log("This runs after 2 seconds");
+}, 2000);
+
+const timeoutId = setTimeout(() => {
+  console.log("This won't run");
+}, 3000);
+
+clearTimeout(timeoutId); // Cancels the timeout
+
+-----------
+const and readonly difference in typescript
+-----------------
+
+Practical examples -------
+
+1. To use inbuilt pipe
+
+imports: [CommonModule]
+<p>{{title | uppercase }}</p>
+
+2. To create customize Pipe
+
+ng generate pipe myCustomizePipe
+
+<p>{{customizedPipe | myCustomizePipe}}</p>
+
+imports: [CommonModule,MyCustomizePipePipe]
+
+customizedPipe = "Customized Pipe Example";
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'myCustomizePipe'
+})
+export class MyCustomizePipePipe implements PipeTransform {
+
+  transform(value: string, ...args: unknown[]): string {
+    return value.toUpperCase();
+  }
+
+}
+
+3. slice example
+
+<!-- Slice first 3 items -->
+<p *ngFor="let item of items | slice:0:3">{{ item }}</p>
+
+items = ['Angular', 'React', 'Vue', 'Svelte', 'Solid'];
+
+output
+Angular
+React
+Vue
+
+<p>{{ 'Hello Angular' | slice:6 }}</p>
+<!-- Output: Angular -->
+
+4. authGuard  example in angular19
+
+ng generate guard [name]
+
+export const routes: Routes = [
+    {path:"second",component:SecondComponent,canActivate:[authGuard]}
+];
+
+import { CanActivateFn } from '@angular/router';
+
+export const authGuard: CanActivateFn = (route, state) => {
+  return true;
+};
+
+
+5. Lazy Loading example in Angular19
+
+ {path:"second",loadComponent:()=>import('./second/second.component').then(m=>m.SecondComponent)}
+
+6. Interceptor
+
+ng generate interceptor httpErrorInterceptor
+
+// app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+
+export const appConfig: ApplicationConfig = {
+  provideHttpClient(withInterceptors([httpErrorInterceptorInterceptor]))]
+};
+
+//second.component.ts
+
+catDetails:string="";
+
+  getCatDetails(){
+    this.dataService.getCatDetails().subscribe({
+      next:(resp)=>{
+       this.catDetails = JSON.stringify(resp);
+      },
+      error:(errorResp)=>{
+        if(errorResp){
+          this.catDetails = JSON.stringify(errorResp.message);
+        }
+      }
+     
+    });
+  }
+
+//DataService
+
+constructor(private http : HttpClient) { }
+
+  getCatDetails():Observable<any>{
+    return this.http.get("https://catfact.ninja/fact");
+    // return this.http.get("https://catfact.ninja/fac");
+  }
+
+//Interceptor
+
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
+
+export const httpErrorInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
+
+  return next(req).pipe(
+    catchError((error:HttpErrorResponse)=>{
+      console.log("Error Inteceptor : ",error.message);
+      return throwError(()=>new Error(error?.message || 'Something went wrong'));
+    })
+  );
+};
+
+7. Form Validation
+
+<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+    
+    <input formControlName="username"    placeholder="Enter UserName" />
+
+    <input formControlName="password"   type="password" placeholder="Enter Password" />
+
+    <button type="submit" class="submitButton">Form Submit</button>
+</form>
+
+//second.component.ts
+
+  imports: [ReactiveFormsModule],
+
+loginForm!: FormGroup;
+ loginFormDetails:string="";
+
+  constructor(private fb:FormBuilder){
+
+    this.loginForm = this.fb.group({
+      username:['',Validators.required],
+      password:['',[Validators.required,Validators.minLength(6)]]
+    });
+  }
+
+  onFormSubmit(){
+    if(this.loginForm.valid){
+      this.loginFormDetails = JSON.stringify(this.loginForm.value);
+    }else{
+      if(this.loginForm.invalid && this.loginForm.get('username')?.errors?.['required']){
+        alert("Username is Required");
+      }
+      
+    }
+  }
+
+this.loginForm.get('username')?.value;
+
+8. Custom Directive
+
+ng generate directive appHighlight
+
+//second.component.html
+
+<p appAppHighlight>This paragraph has a yellow background!</p>
+
+//ts file
+
+  imports: [ReactiveFormsModule,AppHighlightDirective],
+
+//directive file
+
+import { Directive, ElementRef, Renderer2 } from '@angular/core';
+
+@Directive({
+  selector: '[appAppHighlight]'
+
+})
+export class AppHighlightDirective {
+
+   constructor(private el: ElementRef, private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.renderer.setStyle(this.el.nativeElement, 'backgroundColor', 'yellow');
+  }
+
+
+}
+
+9. Post and Patch example
+
+constructor(private http: HttpClient) {}
+
+  createUser(userData: any) {
+    return this.http.post('https://api.example.com/users', userData);
+  }
+
+
+// component.ts
+this.userService.createUser({ name: 'Alice', email: 'alice@example.com' })
+  .subscribe(response => console.log('User created:', response));
+
+//Update part of a user’s data
+
+// user.service.ts
+updateUserPartial(id: number, partialData: any) {
+  return this.http.patch(`https://api.example.com/users/${id}`, partialData);
+}
+
+// component.ts
+this.userService.updateUserPartial(1, { email: 'newemail@example.com' })
+  .subscribe(response => console.log('User updated:', response));
+
+
+10. Create method will create a List.
+
+Add method will take an element and add element to the list but don't add the element if alreay present.
+
+delete method will take an element will delete element from the list.
+
+
+let newArrList = [];
+ function createList(){
+   
+    newArrList = ["apple","kiwi","banana"];
+   
+
+}
+
+function addData(val:string){
+	
+  if(val && this.newArrList.indexOf(val) === -1){
+	
+	this.newArrList.push(val);
+}
+}
+
+function removeData(val:string){
+	
+	if(val && this.newArrList.indexOf(val) != -1){
+	this.newArrList.splice(this.newArrList.indexOf(val),1);
+	}
+
+}
+
+
+Interview questions
+
+pure and impure pipes
+lazyloading concept
+router guard concept
+javascript vs typescript
+what is difference between any and unknown
+difference between const and readonly
+- const is for variables and applies at the variable level.
+- readonly is for properties and applies at the object or class level.
+
+
+route parameters concept
+difference between observable and promise
+signals
+aot and jit
+Within the angular.json file, which defines your Angular workspace and project configurations, AOT compilation settings can be found under the architect.build.configurations object for each project.
+For example, in the production configuration, you will typically see aot: true by default, indicating that AOT compilation is enabled for production builds.
+   
+ "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "aot": true,
+
+-----------------
+signals are a new reactive primitive introduced to make state management more intuitive and efficient. Think of a signal as a special kind of variable that automatically tracks where it's used and updates those places when its value changes.
+How Signals Work
+A signal wraps a value and notifies Angular whenever that value changes. This allows Angular to update only the parts of the UI that depend on that specific 
+
+signal—no more checking every component unnecessarily.
+
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  template: `
+    <h2>Count: {{ count() }}</h2>
+    <button (click)="increment()">Increment</button>
+  `
+})
+export class CounterComponent {
+  count = signal(0); // Create a signal with initial value 0
+
+  increment() {
+    this.count.update(value => value + 1); // Update the signal
+  }
+}
+
+--------------
+
+how does main.ts gets added - 
+in angular.json main.ts file is added "browser": "src/main.ts",also in tsconfig.app.json   "files": [
+    "src/main.ts"
+  ], was added
+angular.json
+angular libraries - @angular/forms , @angular/router
+how to check browser compatibility
+what is ECMAScript
+
+
+weakMap ---
+
+A WeakMap in JavaScript is a special kind of map that allows you to associate data with objects without preventing those objects from being garbage collected. Here's what makes it unique:
+
+------
+domain perform logic
+box model--
+The box-sizing property allows us to include the padding and border in an element's total width and height.
+If you set box-sizing: border-box; on an element, padding and border are included in the width and height:
+.div1 {
+  width: 300px;
+  height: 100px;
+  border: 1px solid blue;
+  box-sizing: border-box;
+}
+
+.div2 {
+  width: 300px;
+  height: 100px;  
+  padding: 50px;
+  border: 1px solid red;
+  box-sizing: border-box;
+}
+
+inline css
+flex
+
+-----------
+The ngOnChanges() lifecycle hook in Angular is triggered whenever an @Input() property of a component changes. It’s especially useful when a parent component updates values passed to a child component, and you want to respond to those changes.
+
+
+ ngOnChanges(changes: SimpleChanges) {
+    console.log('ngOnChanges triggered!');
+    console.log('Previous:', changes['name'].previousValue);
+    console.log('Current:', changes['name'].currentValue);
+  }
+
+
+ngDoCheck()
+- When it runs: On every change detection cycle.
+- Use it for: Custom change detection logic when Angular’s default checks aren’t enough.
+- Example use case: Detecting changes in nested objects or arrays that Angular might miss.
+
+ngDoCheck() {
+  console.log('Change detection cycle triggered');
+}
+
+-----
+How Tree Shaking Works in Angular
+- Angular uses ES6 modules, which allow static analysis of imports and exports.
+- During the production build (ng build --prod), Angular uses Webpack and Ahead-of-Time (AOT) compilation to analyze your code.
+- Any code that is imported but not used is excluded from the final bundle
+
+--------
+custom libraries how we can create and use it
+
+a custom library is a reusable collection of components, services, directives, pipes, or utilities that you can package and share across multiple Angular applications. Think of it as your own mini-Angular framework tailored to your organization’s needs—perfect for design systems, shared business logic, or utility functions.
+
+ng new button-workspace --create-application=false
+cd button-workspace
+
+ng generate library my-lib
+This creates a projects/my-lib folder with its own module, component, and public-api.ts.
+
+ng generate component my-button --project=my-lib
+
+
+
+-----------
+router-outlet
+
+Yes, you absolutely can have multiple <router-outlet> tags in a single HTML file in Angular! This is especially useful when you want to display multiple routed views simultaneously, such as in dashboards, sidebars, or pop-up panels.
+
+<!-- Primary outlet -->
+<router-outlet></router-outlet>
+
+<!-- Named outlet -->
+<router-outlet name="sidebar"></router-outlet>
+
+const routes: Routes = [
+  { path: 'main', component: MainComponent },
+  { path: 'help', component: HelpComponent, outlet: 'sidebar' }
+];
+
+-----
+<ng-content select="[card-title]"></ng-content>
+
+<app-chid>
+<p card-title></p>
+</app-child>
+
+---------
+how can you create component dynamically in angular
+
+Creating a component dynamically in Angular means instantiating and inserting it into the DOM at runtime—without hardcoding it in the template.
+
+@Component({
+  selector: 'app-host',
+  template: `<ng-template #container></ng-template>`
+})
+export class HostComponent {
+  @ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;
+
+  constructor(private injector: Injector) {}
+
+  loadAlert() {
+    const componentRef = this.container.createComponent(AlertComponent, {
+      injector: this.injector
+    });
+    componentRef.instance.message = 'This is a dynamic alert!';
+  }
+}
+
+Angular uses the provided injector to:
+- Resolve dependencies declared in the component’s constructor
+- Provide services like HttpClient, ActivatedRoute, or any custom service
+- Maintain the DI hierarchy, so the component behaves as if it were part of the normal Angular tree
+If you don’t pass a custom injector, Angular uses the default injector from the parent component or module.
+
+--------------
+ encapsulation refers to how component styles are scoped and applied. It ensures that styles defined in one component don’t unintentionally affect others. Angular provides three types of View Encapsulation, and here’s how each works—with examples:
+
+
+
+1. Emulated (Default)
+Angular emulates Shadow DOM behavior by scoping styles to the component using unique attributes.
+
+@Component({
+  selector: 'app-emulated',
+  template: `<p>Emulated Encapsulation</p>`,
+  styles: [`p { color: red; }`],
+  encapsulation: ViewEncapsulation.Emulated
+})
+export class EmulatedComponent {}
+
+2. None
+No encapsulation—styles are global and can affect any component.
+✅ Example:
+@Component({
+  selector: 'app-none',
+  template: `<p>No Encapsulation</p>`,
+  styles: [`p { color: green; }`],
+  encapsulation: ViewEncapsulation.None
+})
+export class NoneComponent {}
+
+
+- Styles are injected into the global <head>.
+- Use with caution to avoid style conflicts.
+
+🧩 3. ShadowDom
+Uses the browser’s native Shadow DOM for true encapsulation.
+✅ Example:
+@Component({
+  selector: 'app-shadow',
+  template: `<p>Shadow DOM Encapsulation</p>`,
+  styles: [`p { color: blue; }`],
+  encapsulation: ViewEncapsulation.ShadowDom
+})
+
+--------
+Major difference between angular 6 , angular 8 and angular 13
+
+- Focus: Tooling improvements and modularity
+- Key Features:
+- Angular Elements: Create Angular components as custom elements usable in any web page
+- Tree Shakeable Providers: Optimize bundle size by removing unused services
+- CLI Enhancements: Introduced ng update and ng add for easier package management
+- RxJS 6: Major update with new import paths and operators
+- Service Worker Improvements: Better control over caching and offline support
+- Internationalization (i18n): Runtime rendering support for localization
+
+Angular 8 (Released May 2019)
+- Focus: Performance and modern browser support
+- Key Features:
+- Differential Loading: Generates separate bundles for modern and legacy browsers
+- Dynamic Imports: Lazy loading with import() syntax for routes
+- Builder APIs: Customize CLI commands like ng build, ng test
+- Web Worker Support: Offload heavy tasks from the main thread
+- Angular Ivy (Preview): New rendering engine introduced in opt-in mode
+
+
+Angular 13 (Released November 2021)
+- Focus: Simplification and performance
+- Key Features:
+- No Support for IE11: Dropped legacy browser support for better performance
+- Persistent Build Cache: Enabled by default for faster builds
+- RxJS 7.4: Improved reactive programming support
+- TypeScript 4.4 Support: Enhanced type checking and tooling
+- Dynamic Component Creation: Simplified with ViewContainerRef.createComponent (no need for ComponentFactoryResolver)
+- Accessibility Improvements: Better support in Angular Material components
+
+------------
+ useClass: Create a New Instance
+- Purpose: Tells Angular to create a new instance of a class when injecting a dependency.
+
+{ provide: LoggerService, useClass: DebugLoggerService }
+
+- This means: when LoggerService is requested, Angular will inject an instance of DebugLoggerService.
+- Best For: Swapping implementations, mocking services in tests, or customizing behavior.
+
+
+useExisting: Alias to Another Token
+- Purpose: Reuses an already existing instance registered under a different token
+
+{ provide: NewLoggerService, useExisting: OldLoggerService }
+
+- This means: both NewLoggerService and OldLoggerService will point to the same instance.
+- Best For: Creating aliases, avoiding duplication, or exposing limited functionality.
+
+
+🎯 useValue: Inject a Static Value
+- Purpose: Injects a fixed value (object, string, number, etc.) directly.
+- Usage:
+
+{ provide: APP_CONFIG, useValue: { apiUrl: 'https://api.example.com' } }
+
+- This means: whenever APP_CONFIG is injected, Angular provides the given object as-is.
+- Best For: Configuration settings, constants, mock data, or feature flags.
+
+-------------
+The tap operator in Angular (via RxJS) is a side-effect operator used within observable pipelines. It lets you "peek" into the stream without altering the data flowing through it.
+
+ What tap Actually Does
+- Executes a callback function for each emitted value
+- Does not modify the stream or its values
+- Commonly used for:
+- Logging
+- Debugging
+- Triggering side effects (e.g., analytics, state updates)
+
+import { of } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
+
+of(1, 2, 3).pipe(
+  tap(val => console.log('Before map:', val)),
+  map(val => val * 2),
+  tap(val => console.log('After map:', val))
+).subscribe(val => console.log('Final value:', val));
+
+
+//app.config.ts
+ provideHttpClient(withInterceptors([httpErrorInterceptorInterceptor,loggingInterceptor]))
+
+//loggingIterceptor
+
+export const loggingInterceptor: HttpInterceptorFn = (req, next) => {
+  return next(req).pipe(
+    tap(event =>{
+      console.log('Outgoing HTTP request from Logging Interceptor:', req.url, req.method);
+    })
+  );
+};
+
+In older versions:
+
+providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
+]
+
+
+-----------
+Key Techniques to Improve Angular Performance
+1. Use OnPush Change Detection
+- Reduces unnecessary checks by Angular
+- Only updates components when inputs change
+- Ideal for large apps with many components
+2. Implement Lazy Loading
+- Load modules only when needed
+- Reduces initial bundle size and speeds up app startup
+- Use loadChildren in routing configuration
+3. Optimize ngFor with trackBy
+- Prevents Angular from re-rendering entire lists
+- Improves rendering performance for large datasets
+4. Use Pure Pipes Instead of Methods
+- Pure pipes only re-run when inputs change
+- Avoids recalculations during every change detection cycle
+5. Enable Production Mode
+- Use enableProdMode() to disable dev checks
+- Reduces overhead and speeds up runtime
+6. Minimize Third-Party Libraries
+- Remove unused packages
+- Use lightweight alternatives when possible
+7. Use Web Workers for Heavy Tasks
+- Offload CPU-intensive operations like image processing or encryption
+- Keeps UI responsive
+8. Preload & Prefetch Modules
+- Use Angular’s preloading strategies for faster navigation
+- Example: PreloadAllModules strategy
+9. Tree Shaking & AOT Compilation
+- Removes unused code during build
+- Ahead-of-Time (AOT) compilation speeds up rendering
+10. Optimize DOM Manipulation
+- Avoid deep nested structures
+- Use trackBy, ngIf, and ngSwitch wisely
+
+-----------------
+trackBy 
+
+By default, Angular compares list items by reference. If the reference changes—even if the data is the same—Angular will destroy and recreate the DOM elements. This can be inefficient for large lists.
+trackBy lets you tell Angular how to uniquely identify each item, so it can:
+- Reuse existing DOM elements
+- Minimize re-renders
+- Improve performance
+
+<li *ngFor="let user of users; trackBy: trackByUserId">
+  {{ user.name }}
+</li>
+
+trackByUserId(index: number, user: any): number {
+  return user.id;
+}
+
+In this example, Angular uses the id property to track each user. If the list updates but the id stays the same, Angular knows it doesn’t need to recreate the DOM element.
+
+---------
+Handling thousands of rows in Angular efficiently requires a mix of smart rendering, data management, and change detection strategies. Here's a high-level guide to keep your app smooth and responsive:
+
+- Virtual Scrolling: Use Angular’s cdk-virtual-scroll-viewport to render only visible rows.
+
+<cdk-virtual-scroll-viewport itemSize="50" style="height: 400px">
+  <div *cdkVirtualFor="let item of items">{{ item.name }}</div>
+</cdk-virtual-scroll-viewport>
+
+- TrackBy in *ngFor: Prevents Angular from re-rendering unchanged items.
+
+<div *ngFor="let item of items; trackBy: trackById">{{ item.name }}</div>
+
+
+ Data Handling Strategies- Pagination: Load data in chunks from the server using LIMIT and OFFSET.
+- Lazy Loading: Fetch additional data only when needed (e.g., on scroll or tab switch).
+- RxJS Operators: Use debounceTime, distinctUntilChanged, and throttleTime to reduce update frequency.
+
+------------
+
+
+
